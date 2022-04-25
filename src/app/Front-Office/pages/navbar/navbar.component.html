@@ -1,0 +1,33 @@
+    <div id="container">
+      <nav>
+        <div id="logo">
+          <a class="navbar-brand  me-2" routerLink="/acceuil">
+            <img
+              src="assets/Images/logo3.png"
+              height="45"
+              width="195"
+              alt="STB DigiBatiment"
+              loading="lazy"
+            />
+          </a>
+        </div>
+        <ul>
+          <li><a routerLink="/acceuil">Acceuil</a></li>
+          
+          <li><a routerLink="/nouvelle-reclamation">Ajouter Réclamation</a></li>
+        
+          
+          <li *ngIf="role!='employé'"><a routerLink="/fournisseurs">Fournisseurs</a></li>
+          <li class="dropdown"><a >Compte &nbsp;<i class="fa fa-caret-down"></i> </a>
+           <div class="dd">
+             <div id="u_a_c"><div id="up_arrow"></div></div>
+            <ul>
+              
+              <li><a routerLink="/profil"> Profil </a></li>
+              <li><a (click)="disconnect()" routerLink="/login" > Déconnexion</a></li>
+              
+            </ul>
+            </div>
+        </ul>
+      </nav>
+    </div>

@@ -1,0 +1,77 @@
+<navbar></navbar>
+<body>
+  <div class="container">
+    <div class="title">Nouvelle Réclamation</div>
+    
+    <div class="content">
+      <form [formGroup]="form" (ngSubmit)="saveNew(form.value)">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Matricule</span>
+            <input type="text" name="matricule" value="{{matricule}}" readonly="readonly">
+          </div>
+          <div class="input-box">
+            <span class="details">Gouvernorat</span>
+            <input type="text" name="gouvernorat" value="{{gouvernorat}}" readonly="readonly">
+          </div>
+          <div class="input-box">
+            <span class="details">Ville</span>
+            <input type="text" name="ville" value="{{ville}}" readonly="readonly">
+          </div>
+          <div class="input-box">
+            <span class="details">Agence</span>
+            <input type="text" name="agence" value="{{agence}}" readonly="readonly">
+          </div>
+          
+          <div class="input-box">
+            <span class="details">Catégorie</span>
+            <select formControlName="categ" (change)="onSelect3($event)" >
+              <option value="">Choisir...</option>
+              <option *ngFor="let c of cat " value="{{c.id}}" > {{c.name}} </option>
+            </select>
+            <div *ngIf="(categ?.touched && categ?.invalid)|| wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          </div>
+          
+          <div class="input-box">
+            <span class="details">Sous-Catégorie</span>
+            <select formControlName="sousCateg" (change)="DescRequirement($event)" >
+              <option value="">Choisir...</option>
+              <option *ngFor="let s of souscat " value="{{s.id2}}" > {{s.name}} </option>
+            </select>
+            <div *ngIf="(sousCateg?.touched && sousCateg?.invalid)||wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Description</span>
+            <textarea rows="4" cols="40" maxlength="150" formControlName="description" ></textarea>
+            <div *ngIf="(description?.touched && description?.invalid)||wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          </div>
+        </div>
+        <div class="urgence-details">
+          <input type="radio" name="urgence" id="dot-1" value="1" formControlName="urgence" >
+          <input type="radio" name="urgence" id="dot-2" value="2" formControlName="urgence">
+          <input type="radio" name="urgence" id="dot-3" value="3" formControlName="urgence">
+          <span class="urgence-title">Niveau d'urgence</span>
+          <div class="category">
+            <label for="dot-1">
+            <span class="dot one"></span>
+            <span class="urgence" >Peu urgent</span>
+          </label>
+          <label for="dot-2">
+            <span class="dot two"></span>
+            <span class="urgence">Assez urgent</span>
+          </label>
+          <label for="dot-3">
+            <span class="dot three"></span>
+            <span class="urgence">Trés urgent</span>
+            </label>
+          </div>
+        </div>
+        <div *ngIf="wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+        <div class="button">
+          <input type="submit" value="Envoyer">
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>

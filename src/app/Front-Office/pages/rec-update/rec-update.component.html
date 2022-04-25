@@ -1,0 +1,178 @@
+
+<navbar></navbar>
+
+<mat-stepper orientation="vertical" [linear]="isLinear" [selectedIndex]="rec.id_etat - 1" #stepper>
+  <mat-step  [editable]="false" >
+    <ng-template matStepLabel>Affectation</ng-template>
+    
+  </mat-step>
+  <mat-step  [editable]="false">
+    
+      <ng-template matStepLabel>Devis</ng-template>
+      
+  </mat-step>
+  <mat-step  [editable]="false">
+    
+      <ng-template matStepLabel>Contrats</ng-template>
+      
+        
+      
+  </mat-step>
+  <mat-step  [editable]="false">
+    
+      <ng-template matStepLabel>Ordres d'exécution</ng-template>
+      
+      
+  </mat-step>
+  <mat-step  [editable]="false">
+    
+      <ng-template matStepLabel>Factures</ng-template>
+      
+    
+  </mat-step>
+  <mat-step  [editable]="false">
+  
+      <ng-template matStepLabel>Vérification</ng-template>
+      
+  </mat-step>
+  <mat-step [editable]="false">
+    <ng-template matStepLabel>Fin</ng-template>
+    
+  </mat-step>
+</mat-stepper>
+ 
+
+  <mat-stepper orientation="horizontal" [linear]="isLinear" [selectedIndex]="rec.id_etat - 1" #stepper>
+    <mat-step  [editable]="false" >
+      <ng-template matStepLabel>Affectation</ng-template>
+      <mat-card class="example-card">
+        <mat-card-title>Choisir un assistant à qui affecter la réclamation</mat-card-title>
+        <mat-card-content>
+          <p>Veuillez selectionner un assistant avant de continuer</p>
+        
+      <form [formGroup]="firstFormGroup">
+        
+        <mat-form-field appearance="fill">
+          <mat-label>Nom assistant</mat-label>
+          
+
+          <mat-select formControlName="firstCtrl" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let ass of assistants" [value]="ass.id">
+              {{ass.name}}
+            </mat-option>
+          </mat-select>
+          
+
+        </mat-form-field>
+        <div class="space">
+        </div>
+        <button mat-raised-button matStepperNext color="primary" *ngIf="firstCtrl.valid" align="end">Etape suivante</button>
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      
+    </mat-card-actions>
+    
+  </mat-card>
+    </mat-step>
+    <mat-step  [editable]="false">
+      
+        <ng-template matStepLabel>Devis</ng-template>
+        <mat-card class="example-card">
+          <mat-card-title>Ajouter les devis</mat-card-title>
+          <mat-card-content>
+            <p>Veuillez ajouter les fichiers necéssaires avant de continuer</p>
+          </mat-card-content>
+          
+          <mat-card-actions align="end">
+            <button mat-raised-button>Ajouter fichier</button>
+            <button mat-raised-button>Consulter fournisseurs</button>
+            <button mat-raised-button matStepperNext color="primary">Etape suivante</button>
+          </mat-card-actions>
+          
+        </mat-card>
+    </mat-step>
+    <mat-step  [editable]="false">
+      
+        <ng-template matStepLabel>Contrats</ng-template>
+        <mat-card class="example-card">
+          <mat-card-title>Ajouter les contrats</mat-card-title>
+          <mat-card-content>
+            <p>Veuillez ajouter les fichiers necéssaires avant de continuer</p>
+          </mat-card-content>
+          
+          <mat-card-actions align="end">
+            <button mat-raised-button>Ajouter fichier</button>
+            <button mat-raised-button>Consulter fournisseurs</button>
+            <button mat-raised-button matStepperNext color="primary">Etape suivante</button>
+          </mat-card-actions>
+          
+        </mat-card>
+    </mat-step>
+    <mat-step  [editable]="false">
+      
+        <ng-template matStepLabel>Ordres d'exécution</ng-template>
+        <mat-card class="example-card">
+          <mat-card-title>Ajouter les ordres d'exécution</mat-card-title>
+          <mat-card-content>
+            <p>Veuillez ajouter les fichiers necéssaires avant de continuer</p>
+          </mat-card-content>
+          
+          <mat-card-actions align="end">
+            <button mat-raised-button>Ajouter fichier</button>
+            <button mat-raised-button>Consulter fournisseurs</button>
+            <button mat-raised-button matStepperNext color="primary">Etape suivante</button>
+          </mat-card-actions>
+          
+        </mat-card>
+        
+    </mat-step>
+    <mat-step  [editable]="false">
+      
+        <ng-template matStepLabel>Factures</ng-template>
+        <mat-card class="example-card">
+          <mat-card-title>Ajouter les factures</mat-card-title>
+          <mat-card-content>
+            <p>Veuillez ajouter les fichiers necéssaires avant de continuer</p>
+          </mat-card-content>
+          
+          <mat-card-actions align="end">
+            <button mat-raised-button>Ajouter fichier</button>
+            <button mat-raised-button>Consulter fournisseurs</button>
+            <button mat-raised-button matStepperNext color="primary">Etape suivante</button>
+          </mat-card-actions>
+          
+        </mat-card>
+      
+    </mat-step>
+    <mat-step  [editable]="false">
+    
+        <ng-template matStepLabel>Vérification</ng-template>
+        <mat-card class="example-card">
+          <mat-card-title>La réclamation a t'elle été bien traitée ?</mat-card-title>
+          <mat-card-content>
+            <p>Si oui, tapez sur le bouton "Etape suivante"</p>
+            <p>Sinon, tapez sur le bouton "Retour à l'étape des devis"</p>
+          </mat-card-content>
+          
+          <mat-card-actions align="end">
+            
+            <button mat-raised-button color="warn">Retour à l'étape des devis</button>
+            <button mat-raised-button matStepperNext color="primary">Etape suivante</button>
+          </mat-card-actions>
+          
+        </mat-card>
+    </mat-step>
+    <mat-step [editable]="false">
+      <ng-template matStepLabel>Fin</ng-template>
+      <mat-card class="example-card">
+        <mat-card-title>La réclamation est traitée</mat-card-title>
+        <mat-card-content>
+          <br/>
+        </mat-card-content>
+        </mat-card>
+      <div>
+      </div>
+    </mat-step>
+  </mat-stepper>
