@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'nouvelle-reclamation', component: NewRecComponent },
   { path: 'fournisseurs', component: FournisseursComponent},
+  { path: 'fournisseurs/:id', component: FournisseursComponent},
   { path: 'profil', component: ProfilComponent},
   { path: 'reclamation-details/:id', component: RecDetailsComponent },
   { path: 'reclamation-update/:id', component: RecUpdateComponent }

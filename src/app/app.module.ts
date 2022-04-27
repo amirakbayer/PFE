@@ -32,6 +32,12 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import { FileDialogComponent } from './Front-Office/pages/rec-update/file-dialog/file-dialog.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +58,7 @@ import {MatSelectModule} from '@angular/material/select';
     RecUpdateComponent,
     ProgressComponent,
     ProgressStepComponent,
+    FileDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +74,10 @@ import {MatSelectModule} from '@angular/material/select';
     MatCardModule,
     MatDividerModule,
     MatSelectModule,
+    MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   providers: [
     RecServiceService,

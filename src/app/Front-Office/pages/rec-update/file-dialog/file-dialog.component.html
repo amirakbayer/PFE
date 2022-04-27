@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Ajouter fichier</h1>
+<div mat-dialog-content>
+
+    <form [formGroup]="secondFormGroup" (ngSubmit)="submit(secondFormGroup.value)">
+          
+        <mat-form-field appearance="fill">
+          <mat-label>Nom fournisseur</mat-label>
+          
+
+          <mat-select formControlName="secondCtrl">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let f of fournisseurs" [value]="f.id">
+              {{f.name}}
+            </mat-option>
+          </mat-select>
+          
+        </mat-form-field>
+        
+        
+        <button mat-raised-button type="button" (click)="fileInput.click()">Select File</button>
+
+        <input style="display: none"  #attachments type="file" (change)="onFileChanged($event)" #fileInput multiple="true">
+
+        <div *ngFor="let selected of listOfFiles;let index = index">
+            <h3>{{selected}}</h3>
+            <button mat-icon-button type="button" (click)="removeSelectedFile(index)">delete</button>
+        </div>
+        <button mat-raised-button type="submit" [disabled]="!fileList.length" >Enregistrer</button>
+</form>
+
+</div>    

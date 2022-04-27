@@ -6,12 +6,13 @@ import { Injectable } from '@angular/core';
 export class EtatService {
   T  = [ 
     {id:1,Nom:"en attente",altNom:"en attente"},
-    {id:2,Nom:"recherche des fournisseurs",altNom:"en cours de traitement"},
-    {id:3,Nom:"mise en accord",altNom:"en cours de traitement"},
-    {id:4,Nom:"execution",altNom:"en cours de traitement"},
-    {id:5,Nom:"finalisation",altNom:"en cours de traitement"},
-    {id:6,Nom:"traitée",altNom:"traité"},
-    {id:7,Nom:"invalide",altNom:"invalide"},
+    {id:2,Nom:"devis",altNom:"en cours de traitement"},
+    {id:3,Nom:"contrats",altNom:"en cours de traitement"},
+    {id:4,Nom:"ordres d'execution",altNom:"en cours de traitement"},
+    {id:5,Nom:"factures",altNom:"en cours de traitement"},
+    {id:6,Nom:"vérification",altNom:"en cours de traitement"},
+    {id:7,Nom:"fin",altNom:"traitée"},
+    {id:8,Nom:"invalide",altNom:"invalide"},
   ]
 
   etatName(id){
