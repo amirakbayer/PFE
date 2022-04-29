@@ -5,7 +5,33 @@
 
 <div class="home-container">
   <div class="home-container1">
-    <div class="home-container2"></div>
+    <div class="home-container2">
+
+
+      <mat-card class="example-card">
+        <mat-card-title>Détails de la réclamation : </mat-card-title>
+        <mat-card-content>
+          
+          <br/>
+          <p><b>ID Réclamation :    </b>{{rec.id}} </p>
+          <p><b>Date de création :    </b>{{rec.date}} </p>
+          <full [id]="rec.id"></full>
+          
+          <p ><b>Assistant en charge :    </b>
+            <span *ngIf="rec.matr_affect!=undefined">{{userName(rec.id_affect)}}</span>
+            <span *ngIf="rec.matr_affect==undefined">la réclamation n'est pas encore affectée</span> </p>
+          
+          <p> <b>Nom réclamant :    </b>{{userName(rec.id_reclamant)}} </p>
+          <p> <b>Numéro de téléphone :    </b>{{userPhone(rec.id_reclamant)}} </p>
+          <p> <b>Adresse email :    </b>{{userEmail(rec.id_reclamant)}} </p>
+          
+          
+
+        </mat-card-content>
+      </mat-card>
+
+
+    </div>
     <div class="home-container3">
       <mat-stepper orientation="vertical" [linear]="isLinear" [selectedIndex]="rec.id_etat - 1" *ngIf="rec.id_etat <8" #stepper1>
         <mat-step   >

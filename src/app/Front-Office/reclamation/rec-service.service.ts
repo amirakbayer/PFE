@@ -14,7 +14,9 @@ export class RecServiceService {
     new reclam("3","02","2",4,"15/01/2022",42,2,"abcd","02"),
     new reclam("4","03","3",7,"16/02/2021",36,1,"abcd","02")
 ]
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient
+    ) {
     
    }
 

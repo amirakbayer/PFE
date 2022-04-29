@@ -1,1 +1,42 @@
-<p> </p>
+
+<form >
+    <div class="user-details">
+      <div class="input-box">
+        <span class="details">Matricule</span>
+        <input type="text" name="matricule" value="{{userMatr(rec.id_reclamant)}}" readonly="readonly">
+      </div>
+      <div class="input-box">
+        <span class="details">Gouvernorat</span>
+        <input type="text" name="gouvernorat" value="{{gouv(rec.id_lieu)}}" readonly="readonly">
+      </div>
+      <div class="input-box">
+        <span class="details">Ville</span>
+        <input type="text" name="ville" value="{{ville(rec.id_lieu)}}" readonly="readonly">
+      </div>
+      <div class="input-box">
+        <span class="details">Agence</span>
+        <input type="text" name="agence" value="{{agence(rec.id_lieu)}}" readonly="readonly">
+      </div>
+      
+      <div class="input-box">
+          <span class="details">Catégorie</span>
+          <input type="text" name="categ" value="{{categN(rec.Id_sousCateg)}}" readonly="readonly">
+        </div>
+        <div class="input-box">
+          <span class="details">Sous-Catégorie</span>
+          <input type="text" name="souscateg" value="{{sCateg(rec.Id_sousCateg)}}" readonly="readonly">
+        </div>
+      
+      <div class="input-box" *ngIf="rec.desc!=undefined">
+        <span class="details">Description</span>
+        <textarea rows="4" cols="40" maxlength="150" value="{{rec.desc}}" readonly="readonly"></textarea>
+      </div>
+      
+    </div>
+    <div class="user-details">
+      <div class="input-box">
+          <span class="details">Urgence</span>
+          <input type="text" name="urg" value="{{urgenceN(rec.urg)}}" readonly="readonly">
+      </div>
+    </div>
+  </form>

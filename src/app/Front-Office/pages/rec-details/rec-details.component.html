@@ -1,175 +1,58 @@
 <navbar></navbar>
 
+
+
 <div class="home-container">
-    <div class="home-container1">
-      <div class="home-container2">
-        <div class="home-container3">
-          <h1 class="home-text">
-            <span class="home-text01" *ngIf="etatN(rec.etat_act)=='invalide'">Réclamation invalide</span>
-          </h1>
-        </div>
-        <div class="home-container4">
-          <div class="home-container5">
-            <span class="home-text02">
-              ID : {{rec.id}}
-              <span [innerHTML]="raw3r9q"></span>
-            </span>
-            <span class="home-text03">
-              <span>Date de création :</span>
-              <br />
-              <span>{{rec.date}}</span>
-            </span>
-            <span class="home-text07">
-              <span>Assistant en charge :</span>
-              <br />
-              <span *ngIf="rec.matr_affect!=undefined">{{userName(rec.id_affect)}}</span>
-              <span *ngIf="rec.matr_affect==undefined">la réclamation n'est pas encore affectée</span>
-            </span>
-            <span class="home-text11">
-              <span>Adresse email de l&apos;assistant :</span>
-              <br />
-              <span *ngIf="rec.matr_affect!=undefined">{{userEmail(rec.id_affect)}}</span>
-              <span *ngIf="rec.matr_affect==undefined">la réclamation n'est pas encore affectée</span>
-            </span>
-          </div>
-          <div class="home-container6">
-            <button *ngIf="etatN(rec.etat_act)=='en attente'" class="home-button button" (click)="onModif()" >Modifier</button>
-            <div class="home-container7">
-              <button *ngIf="rec.etat_act=='en attente'" class="home-button1 button"(click)="onDelete()">Supprimer</button>
-            </div>
-          </div>
+  <div class="home-container1">
+    <div class="home-container2">
+
+
+      <mat-card class="example-card">
+        <mat-card-title>Détails de la réclamation : </mat-card-title>
+        <mat-card-content>
           
-        </div>
-        <div class="home-container8">
+          <br/>
+          <p><b>ID Réclamation :    </b>{{rec.id}} </p>
+          <p><b>Date de création :    </b>{{rec.date}} </p>
+          <full [id]="rec.id"></full>
+          
+          <p ><b>Assistant en charge :    </b>
+            <span *ngIf="rec.matr_affect!=undefined">{{userName(rec.id_affect)}}</span>
+            <span *ngIf="rec.matr_affect==undefined">la réclamation n'est pas encore affectée</span> </p>
+          
+          
+          
+          
 
-            <body *ngIf="modif==false">
-                <div class="container">
-                  <div class="content">
-                    <form >
-                      <div class="user-details">
-                        <div class="input-box">
-                          <span class="details">Matricule</span>
-                          <input type="text" name="matricule" value="{{rec.id_reclamant}}" readonly="readonly">
-                        </div>
-                        <div class="input-box">
-                          <span class="details">Gouvernorat</span>
-                          <input type="text" name="gouvernorat" value="{{gouvernorat}}" readonly="readonly">
-                        </div>
-                        <div class="input-box">
-                          <span class="details">Ville</span>
-                          <input type="text" name="ville" value="{{ville}}" readonly="readonly">
-                        </div>
-                        <div class="input-box">
-                          <span class="details">Agence</span>
-                          <input type="text" name="agence" value="{{agence}}" readonly="readonly">
-                        </div>
-                        
-                        <div class="input-box">
-                            <span class="details">Catégorie</span>
-                            <input type="text" name="categ" value="{{categN(rec.Id_sousCateg)}}" readonly="readonly">
-                          </div>
-                          <div class="input-box">
-                            <span class="details">Sous-Catégorie</span>
-                            <input type="text" name="souscateg" value="{{sCateg(rec.Id_sousCateg)}}" readonly="readonly">
-                          </div>
-                        
-                        <div class="input-box" *ngIf="rec.desc!=undefined">
-                          <span class="details">Description</span>
-                          <textarea rows="4" cols="40" maxlength="150" value="{{rec.desc}}" readonly="readonly"></textarea>
-                        </div>
-                        
-                      </div>
-                      <div class="user-details">
-                        <div class="input-box">
-                            <span class="details">Urgence</span>
-                            <input type="text" name="urg" value="{{urgenceN(rec.urg)}}" readonly="readonly">
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
+        </mat-card-content>
+      </mat-card>
+
+
+    </div>
+    <div class="home-container3">
+      <div *ngIf="!processing">
+      <mat-stepper orientation="vertical" [linear]="false" [selectedIndex]="currentState" *ngIf="rec.id_etat <8" #stepper1>
+        <mat-step   >
+          <ng-template matStepLabel>En attente</ng-template>
+          
+        </mat-step>
+        <mat-step  >
+          
+            <ng-template matStepLabel>En cours de traitement</ng-template>
+            
+        </mat-step>
+        <mat-step  >
+          
+            <ng-template matStepLabel>traitée</ng-template>
+            
               
-             </body> 
-
-
-             <body *ngIf="modif==true">
-                <div class="container">
-                    
-                    <div class="content">
-                      <form [formGroup]="form" (ngSubmit)="saveModif(form.value)">
-                        <div class="user-details">
-                          <div class="input-box">
-                            <span class="details">Matricule</span>
-                            <input type="text" name="matricule" value="{{rec.id_reclamant}}" readonly="readonly">
-                          </div>
-                          <div class="input-box">
-                            <span class="details">Gouvernorat</span>
-                            <input type="text" name="gouvernorat" value="{{gouvernorat}}" readonly="readonly">
-                          </div>
-                          <div class="input-box">
-                            <span class="details">Ville</span>
-                            <input type="text" name="ville" value="{{ville}}" readonly="readonly">
-                          </div>
-                          <div class="input-box">
-                            <span class="details">Agence</span>
-                            <input type="text" name="agence" value="{{agence}}" readonly="readonly">
-                          </div>
-                          
-                          <div class="input-box">
-                            <span class="details">Catégorie</span>
-                            <select formControlName="categ" (change)="onSelect3($event)" id="selectedCategory" 
-                            [(ngModel)]="selectedCategory" >
-                              <!-- <option  selected>{{categN(selectedCategory)}}</option> -->
-                              <option *ngFor="let c of cat " value="{{c.id}}" > {{c.name}} </option>
-                            </select>
-                            <div *ngIf="(categ?.touched && categ?.invalid)|| wrong" class="alert alert-danger">Ce champ est obligatoire</div>
-                          </div>
-                          
-                          <div class="input-box">
-                            <span class="details">Sous-Catégorie</span>
-                            <select formControlName="sousCateg" (change)="DescRequirement($event)" >
-                              <option value="rec.Id_sousCateg" selected>{{sCateg(rec.Id_sousCateg)}}</option>
-                              <option *ngFor="let s of souscat " value="{{s.id2}}" > {{s.name}} </option>
-                            </select>
-                            <div *ngIf="(sousCateg?.touched && sousCateg?.invalid)||wrong" class="alert alert-danger">Ce champ est obligatoire</div>
-                          </div>
-                          <div class="input-box">
-                            <span class="details">Description</span>
-                            <textarea rows="4" cols="40" maxlength="150" formControlName="description" value="rec.desc" ></textarea>
-                            <div *ngIf="(description?.touched && description?.invalid)||wrong" class="alert alert-danger">Ce champ est obligatoire</div>
-                          </div>
-                        </div>
-                        <div class="urgence-details">
-                          <input type="radio" name="urgence" id="dot-1" value="1" formControlName="urgence" >
-                          <input type="radio" name="urgence" id="dot-2" value="2" formControlName="urgence">
-                          <input type="radio" name="urgence" id="dot-3" value="3" formControlName="urgence">
-                          <span class="urgence-title">Niveau d'urgence</span>
-                          <div class="category">
-                            <label for="dot-1">
-                            <span class="dot one"></span>
-                            <span class="urgence" >Peu urgent</span>
-                          </label>
-                          <label for="dot-2">
-                            <span class="dot two"></span>
-                            <span class="urgence">Assez urgent</span>
-                          </label>
-                          <label for="dot-3">
-                            <span class="dot three"></span>
-                            <span class="urgence">Trés urgent</span>
-                            </label>
-                          </div>
-                        </div>
-                        <div *ngIf="wrong" class="alert alert-danger">Ce champ est obligatoire</div>
-                        <div class="button">
-                          <input type="submit" value="Enregistrer">
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-             </body> 
-
-        </div>
-      </div>
+            
+        </mat-step>
+        
+      </mat-stepper>
+    </div>
+      <button mat-raised-button *ngIf="rec.id_etat ==1" color="primary" (click)="onModif()" >Modifier</button>
+      <button mat-raised-button *ngIf="rec.id_etat ==1" color="warn" (click)="onDelete()" >Supprimer</button>
     </div>
   </div>
-  
+  </div>

@@ -15,18 +15,16 @@ import {MatTableDataSource} from '@angular/material/table';
 
 import { getNumberOfCurrencyDigits } from '@angular/common';
 import { getMatIconNameNotFoundError } from '@angular/material/icon';
+import { LieuService } from '../../utilisateur/lieu.service';
+import { CategorieService } from '../new-rec/categorie.service';
+import { UtilisateurService } from '../../utilisateur/utilisateur.service';
 
 export interface DialogData {
   Type: number;
 }
 
 
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
+
 
 export interface UpdatesData {
   Date: Date;
@@ -50,7 +48,7 @@ export interface UpdatesData {
 export class RecUpdateComponent implements OnInit, AfterViewInit {
   isLinear = false;
   firstFormGroup: FormGroup;
-  
+  role;
   id;
   rec;
   assistants;
@@ -71,7 +69,10 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
     private router: Router,
     private _formBuilder: FormBuilder,
     private recService: RecServiceService,
-    public dialog: MatDialog) { 
+    public dialog: MatDialog,
+    private lieu: LieuService,
+    private categorie: CategorieService,
+    private utilisateur:UtilisateurService) { 
       
     //transform
     this.rawData=[   //////raw data should be received from api : getMisesAJours(id_rec) or something like that
@@ -102,8 +103,8 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
 
 this.rec=this.recService.getRecDet(this.id);
 this.assistants=[{id:'1',name:'john Smith'},] ;///here we put the api to get assistants
-
-
+this.role=localStorage.getItem('role');
+console.log(this.role);
   }
 
   ngAfterViewInit() {
@@ -111,8 +112,42 @@ this.assistants=[{id:'1',name:'john Smith'},] ;///here we put the api to get ass
     this.dataSource.sort = this.sort;
   }
 
+  gouv(id){
+    return this.lieu.getGouv(id);
+  }
+
+  ville(id){
+    return this.lieu.getVil(id);
+  }
+  agence(id){
+    return this.lieu.getAg(id);
+  }
+  categN(id){
+    return this.categorie.getCatName(id);
+  }
+  sCateg(id){
+    return this.categorie.getsCatName(id);
+  }
+  urgenceN(idU){
+    if(idU==3){
+      return "Trés urgente"
+    }else if(idU==3){
+      return "Assez urgente"
+    }else{
+      return "Peu urgente"
+    }
+  }
+  userName(id){
+    return this.utilisateur.getUserName(id)
+  }
   
-  
+  userEmail(id){
+    return this.utilisateur.getUserEmail(id)
+  }
+  userPhone(id){
+    return this.utilisateur.getUserPhone(id);
+  }
+
   get firstCtrl(){
     return this.firstFormGroup.get('firstCtrl');
   }

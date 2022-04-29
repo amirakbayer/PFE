@@ -37,6 +37,8 @@ import { FileDialogComponent } from './Front-Office/pages/rec-update/file-dialog
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { ModifDialogComponent } from './Front-Office/pages/rec-details/modif-dialog/modif-dialog.component';
+import { DeleteDialogComponent } from './Front-Office/pages/rec-details/delete-dialog/delete-dialog.component';
 
 
 @NgModule({
@@ -59,6 +61,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     ProgressComponent,
     ProgressStepComponent,
     FileDialogComponent,
+    ModifDialogComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,

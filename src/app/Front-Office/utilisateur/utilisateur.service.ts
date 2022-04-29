@@ -94,6 +94,14 @@ export class UtilisateurService {
     }
     return ""
   }
+  getUserMatr(id:string){
+    for(let i=0;i<this.T.length;i++){
+      if(this.T[i].Id==id){
+        return this.T[i].Matr
+      }
+    }
+    return ""
+  }
   getUserPhone(id:string){
     for(let i=0;i<this.T.length;i++){
       if(this.T[i].Id==id){

@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CategorieService } from '../../pages/new-rec/categorie.service';
+import { LieuService } from '../../utilisateur/lieu.service';
+import { UtilisateurService } from '../../utilisateur/utilisateur.service';
 import { RecServiceService } from '../rec-service.service';
 import { reclam } from '../reclam';
 
@@ -7,19 +10,24 @@ import { reclam } from '../reclam';
   templateUrl: './full.component.html',
   //template: '',
   styleUrls: ['./full.component.css'],
-  //inputs: ['ident']
+  inputs: ['id']
 })
 export class FullComponent implements OnInit {
-  ident! : string;
+  id
+  rec;
   //rec! : reclam;
   //R0= new reclam("0","000","en attente","01/01/2000","00",1);
-  constructor(private service:RecServiceService) { 
-    console.log("I'm in full component");
+  constructor(
+    private recService: RecServiceService,
+    private lieu: LieuService,
+    private categorie: CategorieService,
+    private utilisateur:UtilisateurService) { 
+    
 
   }
   
   ngOnInit(): void {
-
+    this.rec=this.recService.getRecDet(this.id);
 
     //if(this.service.IdExists(this.ident)){
      // this.rec=<reclam> this.service.getRecDet(this.ident);
@@ -29,6 +37,33 @@ export class FullComponent implements OnInit {
     
     //console.log(this.rec);
   }
+  gouv(id){
+    return this.lieu.getGouv(id);
+  }
 
+  ville(id){
+    return this.lieu.getVil(id);
+  }
+  agence(id){
+    return this.lieu.getAg(id);
+  }
+  categN(id){
+    return this.categorie.getCatName(id);
+  }
+  sCateg(id){
+    return this.categorie.getsCatName(id);
+  }
+  urgenceN(idU){
+    if(idU==3){
+      return "Trés urgente"
+    }else if(idU==3){
+      return "Assez urgente"
+    }else{
+      return "Peu urgente"
+    }
+  }
+  userMatr(id){
+    return this.utilisateur.getUserMatr(id)
+  }
 
 }
