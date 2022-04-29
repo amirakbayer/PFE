@@ -32,7 +32,7 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
   ville
   agence
   rec;
-  currentState;
+  currentState: any;
   selectedCategory;
   processing=true;
   
@@ -65,14 +65,14 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
        
     });
     this.rec = this.recService.getRecDet(this.id);
-    //console.log(this.rec);
-    if(this.rec.Id_etat==1){
+    console.log("Id_etat: ", this.rec.Id_etat);
+    if(this.rec.id_etat==1){
       this.currentState = 0;
     }
-    if(this.rec.Id_etat>1&&this.rec.Id_etat<7){
+    if(this.rec.id_etat>1&&this.rec.id_etat<7){
       this.currentState = 1;
     }
-    if(this.rec.Id_etat==7){
+    if(this.rec.id_etat==7){
       this.currentState = 2;
     }
     this.processing=false;
