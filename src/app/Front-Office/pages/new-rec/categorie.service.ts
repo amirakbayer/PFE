@@ -117,4 +117,13 @@ export class CategorieService {
     return ""
   }
 
+  getCatNameFromItsID(id:number){
+    for(let i=0;i<this.sousCateg.length;i++){
+      if(this.categ[i].id==id){
+        return this.categ[i].name
+      }
+    }
+    return ""
+  }
+
 }

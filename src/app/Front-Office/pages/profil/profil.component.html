@@ -1,1 +1,19 @@
 <navbar></navbar>
+<div class="home-container">
+    <mat-card class="example-card">
+        <mat-card-title>Vos Informations</mat-card-title>
+        <mat-card-content>
+          <br/>
+          <h3><b>Matricule:              </b></h3><p>{{user.matr}}</p>
+          <h3><b>Nom:                    </b></h3><p>{{user.nom}}</p>
+          <h3><b>Prénom:                 </b></h3><p>{{user.prenom}}</p>
+          <h3><b>Numéro de téléphone:    </b></h3><p>{{user.num_tel}}</p> <button mat-raised-button color="primary"  >Modifier</button>
+          <h3><b>Adresse E-mail:         </b></h3><p>{{user.email}}</p>
+          <h3 *ngIf="role!='employé'"><b>Role:                   </b></h3><p>{{role}}</p>
+          <h3><b>Gouvernorat:            </b></h3><p>{{gouv}}</p>
+          <h3><b>Ville:                  </b></h3><p>{{ville}}</p>
+          <h3><b>Agence                  </b></h3><p>{{agence}}</p>
+        </mat-card-content>
+        
+      </mat-card>
+</div>

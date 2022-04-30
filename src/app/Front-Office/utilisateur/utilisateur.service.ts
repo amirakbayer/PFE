@@ -45,6 +45,14 @@ export class UtilisateurService {
     }
     return "employé";
   }
+  getUser(id){
+    for(let i=0;i<this.T.length;i++){
+      if(this.T[i].Id==id){
+        return this.T[i]
+      }
+    }
+    return 0
+  }
 
   getUserLieu(mat:string){
     for(let i=0;i<this.T.length;i++){

@@ -39,6 +39,12 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ModifDialogComponent } from './Front-Office/pages/rec-details/modif-dialog/modif-dialog.component';
 import { DeleteDialogComponent } from './Front-Office/pages/rec-details/delete-dialog/delete-dialog.component';
+import {MatIconModule} from '@angular/material/icon';
+import { ModifFDialogComponent } from './Front-Office/pages/fournisseurs/modif-fdialog/modif-fdialog.component';
+import { DeleteFDialogComponent } from './Front-Office/pages/fournisseurs/delete-fdialog/delete-fdialog.component';
+import { AddFDialogComponent } from './Front-Office/pages/fournisseurs/add-fdialog/add-fdialog.component';
+import { ModifNumDialogComponent } from './Front-Office/pages/profil/modif-num-dialog/modif-num-dialog.component';
+
 
 
 @NgModule({
@@ -63,6 +69,10 @@ import { DeleteDialogComponent } from './Front-Office/pages/rec-details/delete-d
     FileDialogComponent,
     ModifDialogComponent,
     DeleteDialogComponent,
+    ModifFDialogComponent,
+    DeleteFDialogComponent,
+    AddFDialogComponent,
+    ModifNumDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +92,7 @@ import { DeleteDialogComponent } from './Front-Office/pages/rec-details/delete-d
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatIconModule,
   ],
   providers: [
     RecServiceService,

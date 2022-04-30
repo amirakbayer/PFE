@@ -1,0 +1,42 @@
+<div class="container">
+                    
+    <div class="content">
+      <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Nom Fournisseur</span>
+            <input type="text" formControlName="nom" value="fournisseur.nom" >
+            <div *ngIf="(Nom?.touched && Nom?.invalid)|| wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Adresse</span>
+            <input type="text" formControlName="adresse" value="fournisseur.adresse" >
+            <div *ngIf="(Adresse?.touched && Adresse?.invalid)|| wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Numéro de téléphone</span>
+            <input type="text" formControlName="num_tel" value="fournisseur.num_tel" >
+            <div *ngIf="(Num_tel?.touched && Num_tel?.invalid)|| wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Adresse E-mail</span>
+            <input type="text" formControlName="email" value="fournisseur.email" >
+            <div *ngIf="(Email?.touched && Email?.invalid)|| wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          </div>
+          
+          <div class="input-box">
+            <span class="details">Catégorie</span>
+            <select formControlName="categ"  >
+              <!-- <option  selected>{{categN(selectedCategory)}}</option> -->
+              <option *ngFor="let c of cat " value="{{c.id}}" > {{c.name}} </option>
+            </select> 
+            <div *ngIf="(Categ?.touched && Categ?.invalid)|| wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          </div>
+          
+        <div class="button">
+          <input type="submit" value="Enregistrer">
+        </div>
+        </div>
+      </form>
+    </div>
+  </div>
