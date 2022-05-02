@@ -15,6 +15,7 @@ import { reclam } from '../reclam';
 export class FullComponent implements OnInit {
   id
   rec;
+  processing=true;
   //rec! : reclam;
   //R0= new reclam("0","000","en attente","01/01/2000","00",1);
   constructor(
@@ -27,8 +28,10 @@ export class FullComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.rec=this.recService.getRecDet(this.id);
-
+    this.recService.getRecDet(this.id).subscribe((data) => {
+      this.rec=data;
+      this.processing=false
+    });
     //if(this.service.IdExists(this.ident)){
      // this.rec=<reclam> this.service.getRecDet(this.ident);
     //} else {
@@ -37,6 +40,11 @@ export class FullComponent implements OnInit {
     
     //console.log(this.rec);
   }
+
+  getRec(id) {
+    
+  }
+
   gouv(id){
     return this.lieu.getGouv(id);
   }

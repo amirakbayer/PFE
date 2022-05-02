@@ -22,16 +22,44 @@ export class ReducedComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private etat: EtatService) { 
-  }
+      }
 
   ngOnInit(): void {
     this.role=localStorage.getItem('role');
     this.id=localStorage.getItem('id');
-    this.ownRecs=this.recService.getReclamsOfUser(this.id);
-    this.allRecs=this.recService.getRec();
-    this.affRecs=this.recService.getAffRecs(this.id);
+    this.readRecs();
+    this.readOwnRecs();
+    
+    
     this.a=1;
   }
+
+  readRecs(){
+    this.recService.getRec().subscribe((data) => {
+     this.allRecs = data;
+     console.log(this.allRecs)
+    })    
+  }
+  readOwnRecs(){
+    this.recService.getReclamsOfUser(this.id)
+    .subscribe((data) => {
+      this.ownRecs = data 
+      console.log("ownRecs is",this.ownRecs);
+      //this.allRecs = Array.of(this.allRecs);
+     }) 
+    //this.ownRecs=this.recService.getReclamsOfUser(this.id)
+       
+  }
+  readAffRecs(){
+    this.recService.getAffRecs(this.id)
+    .subscribe((data) => {
+      this.affRecs = data 
+      console.log("affRecs is",this.ownRecs);
+      //this.allRecs = Array.of(this.allRecs);
+     })  
+  }
+  
+
   aSet(x:number){
     this.a=x;
   }

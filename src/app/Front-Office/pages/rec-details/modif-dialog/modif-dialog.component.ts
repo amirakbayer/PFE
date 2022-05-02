@@ -25,6 +25,7 @@ export class ModifDialogComponent implements OnInit {
   v;
   a;
   defaultSCateg
+  processing=true;
 
   constructor(@Inject(MAT_DIALOG_DATA) public dialogData: DialogData1,
    private fb: FormBuilder,
@@ -35,8 +36,9 @@ export class ModifDialogComponent implements OnInit {
      private dialogRef: MatDialogRef<ModifDialogComponent>) { }
 
   ngOnInit(): void {
-    this.rec=this.recService.getRecDet(this.dialogData.recId);
-    this.defaultCateg=this.categorie.getCatId(this.rec.Id_sousCateg);
+    this.recService.getRecDet(this.dialogData.recId).subscribe((data) => {
+      this.rec=data;
+      this.defaultCateg=this.categorie.getCatId(this.rec.Id_sousCateg);
     
     this.cat=this.categorie.categorie();
     this.matr=this.utilisateur.getUserMatr(this.rec.id_reclamant);
@@ -59,6 +61,9 @@ export class ModifDialogComponent implements OnInit {
   this.urgence.setValue(this.rec.urg);
   console.log(this.sousCateg);
   this.souscat=this.categorie.souscategorie().filter(e=> e.id==this.categ.value);
+      this.processing=false;
+    });
+    
   }
 
   form = new FormGroup({
@@ -93,11 +98,30 @@ export class ModifDialogComponent implements OnInit {
       console.log(this.form.get('description').validator);
     }
   }
+  data
   saveModif(value){
     if(this.categ.valid && this.sousCateg.valid && this.description.valid)
-    {//send it to api
+    { this.data={id_reclamant:this.rec.id_reclamant,
+      id_lieu:this.rec.id_lieu,
+      id_etat:this.rec.id_etat,
+      date:this.rec.date,
+      id_sousCateg:value.sousCateg,
+      urg:value.urgence,
+      desc:value.description,
+      id_affect:this.rec.id_affect}
+      
+      //send it to api
+      this.recService.updateRec(this.dialogData.recId, this.data).subscribe({
+        complete: () => {
+          this.dialogRef.close();
+          console.log('Content updated successfully!');
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
       //re-initialize rec with new values 
-      this.dialogRef.close();
+      
     } 
     else {
       this.wrong=true;

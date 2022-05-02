@@ -109,7 +109,7 @@ data
                   id_affect:this.id_affect}
       
     
-    this.recService.postRec(this.data)
+    return this.recService.postRec(this.data)
     .subscribe({
       next:(res)=>{
         alert("réclamation envoyée");
@@ -121,7 +121,9 @@ data
     })  }
     else {
       this.wrong=true;
+      return ''
     }
+
 } 
 
 }

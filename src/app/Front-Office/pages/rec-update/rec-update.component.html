@@ -3,7 +3,7 @@
 
 
 
-<div class="home-container">
+<div class="home-container" *ngIf="!processing">
   <div class="home-container1">
     <div class="home-container2">
 
@@ -15,7 +15,7 @@
           <br/>
           <p><b>ID Réclamation :    </b>{{rec.id}} </p>
           <p><b>Date de création :    </b>{{rec.date}} </p>
-          <full [id]="rec.id"></full>
+          <full [id]="rec._id"></full>
           
           <p ><b>Assistant en charge :    </b>
             <span *ngIf="rec.matr_affect!=undefined">{{userName(rec.id_affect)}}</span>

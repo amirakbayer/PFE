@@ -30,8 +30,8 @@
       <div class="col col-3">Categorie</div>
       <div class="col col-4">Etat actuel</div>
     </li>
-    <li class="table-row table-hover" *ngFor="let rec of ownRecs" routerLink="/reclamation-details/{{rec.id}}">
-      <div class="col col-1" >{{rec.id}}</div>
+    <li class="table-row table-hover" *ngFor="let rec of ownRecs" routerLink="/reclamation-details/{{rec._id}}">
+      <div class="col col-1" >{{rec._id}}</div>
       <div class="col col-2" >{{rec.date}}</div>
       <div class="col col-3" >{{categ(rec.Id_sousCateg)}}</div>
       <div class="col col-4" >{{etatN_Emp(rec.id_etat)}}</div>
@@ -47,8 +47,8 @@
       <div class="col col-3">Categorie</div>
       <div class="col col-4">Etat actuel</div>
     </li>
-    <li class="table-row table-hover" *ngFor="let rec of affRecs" routerLink="/reclamation-update/{{rec.id}}">
-      <div class="col col-1" >{{rec.id}}</div>
+    <li class="table-row table-hover" *ngFor="let rec of affRecs" routerLink="/reclamation-update/{{rec._id}}">
+      <div class="col col-1" >{{rec._id}}</div>
       <div class="col col-2" >{{rec.date}}</div>
       <div class="col col-3" >{{categ(rec.Id_sousCateg)}}</div>
       <div class="col col-4" >{{etatN(rec.id_etat)}}</div>
@@ -64,8 +64,8 @@
       <div class="col col-3">Categorie</div>
       <div class="col col-4">Etat actuel</div>
     </li>
-    <li class="table-row table-hover" *ngFor="let rec of allRecs"routerLink="/reclamation-update/{{rec.id}}">
-      <div class="col col-1" >{{rec.id}}</div>
+    <li class="table-row table-hover" *ngFor="let rec of allRecs"routerLink="/reclamation-update/{{rec._id}}">
+      <div class="col col-1" >{{rec._id}}</div>
       <div class="col col-2" >{{rec.date}}</div>
       <div class="col col-3" >{{categ(rec.Id_sousCateg)}}</div>
       <div class="col col-4" >{{etatN(rec.id_etat)}}</div>

@@ -55,6 +55,7 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
   private sub: any;
   rawData;
   Updates;
+  processing=true
   @ViewChild('stepper1',{ static: false }) stepper1: MatStepper;
   @ViewChild('stepper2',{ static: false }) stepper2: MatStepper;
 
@@ -101,12 +102,17 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
   
   this.Updates=Array.from({length:this.rawData.length}, (_, k) => this.transformData(k));
 
-this.rec=this.recService.getRecDet(this.id);
+  this.recService.getRecDet(this.id).subscribe((data) => {
+    this.rec=data;
+    this.processing=false;
+  });
 this.assistants=[{id:'1',name:'john Smith'},] ;///here we put the api to get assistants
 this.role=localStorage.getItem('role');
 console.log(this.role);
   }
-
+  getRec(id) {
+    
+  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -155,32 +161,66 @@ console.log(this.role);
   nextstate(){
     this.rec.id_etat+=1;
     //here you use api to update rec with new id_etat
+    this.recService.updateRec(this.id, this.rec).subscribe({
+      complete: () => {
+        console.log('Content updated successfully!');
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
+    //re-initialize rec with new values 
     
-  }
+  } 
+  
   AffectAndState(id_affect){
     this.rec.id_affect=id_affect;
     this.rec.id_etat+=1;
     //here you use api to update rec with new id_etat and new id_affect
     //
+    this.recService.updateRec(this.id, this.rec).subscribe({
+      complete: () => {
+        console.log('Content updated successfully!');
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
   }
 
   back(){
     this.rec.id_etat=2;
     console.log('new rec.id_etat ',this.rec.id_etat);
     //here you use api to update rec with new id_etat
-    
+    this.recService.updateRec(this.id, this.rec).subscribe({
+      complete: () => {
+        console.log('Content updated successfully!');
+        console.log('new stepper1 selected index ',this.stepper1);
+    this.stepper2.selectedIndex = 1;
+    console.log('new stepper2 selected index ',this.stepper2.selectedIndex);
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
     
     this.stepper1.selectedIndex = 1;
     
     
-    console.log('new stepper1 selected index ',this.stepper1);
-    this.stepper2.selectedIndex = 1;
-    console.log('new stepper2 selected index ',this.stepper2.selectedIndex);
+    
   }
 
   invalidate(){
     this.rec.id_etat=8;
     //here you use api to update rec with new id_etat
+    this.recService.updateRec(this.id, this.rec).subscribe({
+      complete: () => {
+        console.log('Content updated successfully!');
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
   }
 
   openDialog(index: number) {

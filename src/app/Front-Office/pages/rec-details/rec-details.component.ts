@@ -64,8 +64,10 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
         //In a real app: dispatch action to load the details here.
        
     });
-    this.rec = this.recService.getRecDet(this.id);
-    console.log("Id_etat: ", this.rec.Id_etat);
+    this.recService.getRecDet(this.id).subscribe((data) => {
+      this.rec=data;
+      console.log(this.rec)
+      console.log("Id_etat: ", this.rec.id_etat);
     if(this.rec.id_etat==1){
       this.currentState = 0;
     }
@@ -76,6 +78,9 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
       this.currentState = 2;
     }
     this.processing=false;
+    });
+    
+    
     //console.log(this.rec.id_etat-1);
     //console.log(this.stepper1);
     this.form = this.fb.group({  
@@ -88,6 +93,10 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
       description: this.description,
       urgence:this.urgence
   });  
+  }
+
+  getRec(id) {
+    
   }
 
   ngAfterViewInit() {
