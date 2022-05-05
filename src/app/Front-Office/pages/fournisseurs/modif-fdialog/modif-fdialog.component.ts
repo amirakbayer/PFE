@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CategorieService } from '../../new-rec/categorie.service';
 import { AddFDialogComponent } from '../add-fdialog/add-fdialog.component';
 import { DialogData2 } from '../fournisseurs.component';
+import { FournisseursService } from '../fournisseurs.service';
 
 @Component({
   selector: 'app-modif-fdialog',
@@ -15,15 +16,19 @@ export class ModifFDialogComponent implements OnInit {
   form : FormGroup;
   wrong=false;
   fournisseur;
+  processing=true;
   constructor(@Inject(MAT_DIALOG_DATA) public dialogData: DialogData2,
   private dialogRef: MatDialogRef<AddFDialogComponent>,
   private fb: FormBuilder,
-  private categorie: CategorieService) { }
+  private categorie: CategorieService,
+  private fourService: FournisseursService) { }
+
 
   ngOnInit(): void {
     this.cat=this.categorie.categorie();
     //get fournisseur from api with dialogData.id_f
-    this.fournisseur={id_f:1,nom:'société a',categ:1,adresse:'1 rue 23',num_tel:'12345678',email:'abc@h.dn'};
+    this.fourService.getFourDet(this.dialogData._id).subscribe((data) => {
+      this.fournisseur=data;
     this.form= this.fb.group({
       nom: new FormControl('',Validators.required),
       categ: new FormControl('',Validators.required),
@@ -36,6 +41,8 @@ export class ModifFDialogComponent implements OnInit {
     this.Adresse.setValue(this.fournisseur.adresse);
     this.Num_tel.setValue(this.fournisseur.num_tel);
     this.Email.setValue(this.fournisseur.email);
+    this.processing=false;
+  });
   }
   get Categ(){
     return this.form.get('categ')
@@ -54,8 +61,15 @@ export class ModifFDialogComponent implements OnInit {
   }
   submit(value){
     if(this.Categ.valid && this.Nom.valid && this.Adresse.valid && this.Num_tel.valid && this.Email.valid ){
-    console.log('form data',value);  
-    this.dialogRef.close();
+      this.fourService.updateFour(this.dialogData._id, value).subscribe({
+        complete: () => {
+          this.dialogRef.close();
+          console.log('Content updated successfully!');
+        },
+        error: (e) => {
+          console.log(e);
+        },
+      });
     }
     else {
       this.wrong=true;

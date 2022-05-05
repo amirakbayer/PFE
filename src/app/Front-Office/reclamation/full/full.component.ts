@@ -16,6 +16,8 @@ export class FullComponent implements OnInit {
   id
   rec;
   processing=true;
+  categ;
+  sCateg;
   //rec! : reclam;
   //R0= new reclam("0","000","en attente","01/01/2000","00",1);
   constructor(
@@ -30,7 +32,15 @@ export class FullComponent implements OnInit {
   ngOnInit(): void {
     this.recService.getRecDet(this.id).subscribe((data) => {
       this.rec=data;
+      this.categorie.getSousCatDet(this.rec.Id_sousCateg).subscribe((data) =>{
+        this.sCateg=data;
+        this.categorie.getCatDet(this.sCateg.id2).subscribe((data) =>{
+          this.categ=data;
+          console.log("scateg",this.sCateg)
+      console.log("categ",this.categ)
       this.processing=false
+        })
+      })
     });
     //if(this.service.IdExists(this.ident)){
      // this.rec=<reclam> this.service.getRecDet(this.ident);
@@ -55,12 +65,7 @@ export class FullComponent implements OnInit {
   agence(id){
     return this.lieu.getAg(id);
   }
-  categN(id){
-    return this.categorie.getCatName(id);
-  }
-  sCateg(id){
-    return this.categorie.getsCatName(id);
-  }
+ 
   urgenceN(idU){
     if(idU==3){
       return "Trés urgente"

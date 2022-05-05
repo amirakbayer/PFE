@@ -29,7 +29,7 @@ export class ReducedComponent implements OnInit {
     this.id=localStorage.getItem('id');
     this.readRecs();
     this.readOwnRecs();
-    
+    this.readAffRecs();
     
     this.a=1;
   }
@@ -64,7 +64,9 @@ export class ReducedComponent implements OnInit {
     this.a=x;
   }
   categ(idS){
-    return this.categorie.getCatName(idS)
+    this.categorie.getCatDet(idS).subscribe((data) =>{
+    return data.nom;
+    });
   }
   etatN(id){
     return this.etat.etatName(id)

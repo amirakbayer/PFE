@@ -1,11 +1,16 @@
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategorieService {
-
-  constructor() { }
+  baseUri: string = 'http://localhost:4000/categorie';
+  baseUri1: string = 'http://localhost:4000/sous_categorie';
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  constructor(private http: HttpClient) { }
   categ=[
     {id:1, name:'Ascenseur'},
     {id:2, name:'Climatisation'},
@@ -71,12 +76,33 @@ export class CategorieService {
   ];
 
   categorie(){
-    return this.categ
+    return this.http.get(`${this.baseUri}`);
   }
   
-  souscategorie(){
-    return this.sousCateg
+  souscategorie(id){
+    let url = `${this.baseUri1}/${id}`;
+    return this.http.get(url);
   }
+
+  getCatDet(id:string): Observable<any>{
+    let url = `${this.baseUri}/readCat/${id}`;
+    return this.http.get(url, { headers: this.headers }).pipe(
+      map((res: Response) => {
+        return res || {};
+      }),
+      catchError(this.errorMgmt)
+    );
+ }
+
+ getSousCatDet(id:string): Observable<any>{
+  let url = `${this.baseUri1}/readSousCat/${id}`;
+  return this.http.get(url, { headers: this.headers }).pipe(
+    map((res: Response) => {
+      return res || {};
+    }),
+    catchError(this.errorMgmt)
+  );
+}
 
   getCatName(idS:number){
     var idC 
@@ -125,5 +151,18 @@ export class CategorieService {
     }
     return ""
   }
-
+  errorMgmt(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(() => {
+      return errorMessage;
+    });
+  }  
 }

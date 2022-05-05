@@ -57,7 +57,7 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
     this.gouvernorat=localStorage.getItem('gouvernorat');
     this.ville=localStorage.getItem('ville');
     this.agence=localStorage.getItem('agence');
-    this.cat=this.categorie.categorie();
+    //this.cat=this.categorie.categorie();
     this.sub = this.route.params.subscribe(params => {
        this.id = params['id']; // (+) converts string 'id' to a number
        
@@ -134,10 +134,10 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
     return this.form.get('matricule');
   }
 
-  onSelect3(cat){
-    this.souscat=this.categorie.souscategorie().filter(e=> e.id==cat.target.value);
-    console.log("select 3");
-  }
+  //onSelect3(cat){
+   // this.souscat=this.categorie.souscategorie().filter(e=> e.id==cat.target.value);
+    //console.log("select 3");
+  //}
   DescRequirement(s){
     if(s.target.value=="Autre"){
       this.form.get('description').setValidators(Validators.required);

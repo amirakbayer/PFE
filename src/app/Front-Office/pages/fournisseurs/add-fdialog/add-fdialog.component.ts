@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CategorieService } from '../../new-rec/categorie.service';
 import { DialogData2 } from '../fournisseurs.component';
+import { FournisseursService } from '../fournisseurs.service';
 
 @Component({
   selector: 'app-add-fdialog',
@@ -16,7 +17,8 @@ export class AddFDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public dialogData: DialogData2,
   private dialogRef: MatDialogRef<AddFDialogComponent>,
   private fb: FormBuilder,
-  private categorie: CategorieService) { }
+  private categorie: CategorieService,
+  private fourService: FournisseursService) { }
    
   ngOnInit(): void {
     this.cat=this.categorie.categorie();
@@ -46,11 +48,24 @@ export class AddFDialogComponent implements OnInit {
   submit(value){
     if(this.Categ.valid && this.Nom.valid && this.Adresse.valid && this.Num_tel.valid && this.Email.valid ){
       //post it to api
-    console.log('form data',value);  
-    this.dialogRef.close();
+      return this.fourService.postFour(value)
+  .subscribe({
+    next:(res)=>{
+      alert("fournisseur ajouté");
+      this.dialogRef.close();
+    },
+    error:()=>{
+      alert("échec lors de l'ajout du fournisseur");
+    }
+  })  
+      
+    
     }
     else {
       this.wrong=true;
+      return ''
     }
-  }
+}
+
+
 }

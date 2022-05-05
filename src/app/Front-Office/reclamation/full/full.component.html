@@ -20,11 +20,11 @@
       
       <div class="input-box">
           <span class="details">Catégorie</span>
-          <input type="text" name="categ" value="{{categN(rec.Id_sousCateg)}}" readonly="readonly">
+          <input type="text" name="categ" value="{{categ.nom}}" readonly="readonly">
         </div>
         <div class="input-box">
           <span class="details">Sous-Catégorie</span>
-          <input type="text" name="souscateg" value="{{sCateg(rec.Id_sousCateg)}}" readonly="readonly">
+          <input type="text" name="souscateg" value="{{sCateg.nom}}" readonly="readonly">
         </div>
       
       <div class="input-box" *ngIf="rec.desc!=undefined">

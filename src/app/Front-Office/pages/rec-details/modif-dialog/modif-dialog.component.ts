@@ -26,6 +26,7 @@ export class ModifDialogComponent implements OnInit {
   a;
   defaultSCateg
   processing=true;
+  s;
 
   constructor(@Inject(MAT_DIALOG_DATA) public dialogData: DialogData1,
    private fb: FormBuilder,
@@ -38,10 +39,14 @@ export class ModifDialogComponent implements OnInit {
   ngOnInit(): void {
     this.recService.getRecDet(this.dialogData.recId).subscribe((data) => {
       this.rec=data;
-      this.defaultCateg=this.categorie.getCatId(this.rec.Id_sousCateg);
-    
-    this.cat=this.categorie.categorie();
-    this.matr=this.utilisateur.getUserMatr(this.rec.id_reclamant);
+      this.categorie.getSousCatDet(this.rec.Id_sousCateg).subscribe((data)=>{
+        this.s=data;
+        this.categorie.getCatDet(this.s.id2).subscribe((data)=>{
+          this.defaultCateg=data._id;
+          this.categorie.categorie().subscribe((data) => {
+            this.cat = data;
+            console.log(this.cat);
+            this.matr=this.utilisateur.getUserMatr(this.rec.id_reclamant);
     this.g=this.lieu.getGouv(this.rec.id_lieu);
     this.v=this.lieu.getVil(this.rec.id_lieu);
     this.a=this.lieu.getAg(this.rec.id_lieu)
@@ -60,8 +65,21 @@ export class ModifDialogComponent implements OnInit {
   this.description.setValue(this.rec.desc);
   this.urgence.setValue(this.rec.urg);
   console.log(this.sousCateg);
-  this.souscat=this.categorie.souscategorie().filter(e=> e.id==this.categ.value);
-      this.processing=false;
+  this.categorie.souscategorie(this.categ.value).subscribe((data) => {
+    this.souscat = data;
+    console.log(this.souscat);
+    this.processing=false;
+    console.log('rec',this.rec.urg);
+    console.log('control',this.urgence.value);
+   })  ;
+      
+           })
+        })
+      })
+      
+    
+      
+    
     });
     
   }
@@ -89,8 +107,11 @@ export class ModifDialogComponent implements OnInit {
     return this.categorie.getsCatName(idS)
   }
   onSelect3(cat){
-    this.souscat=this.categorie.souscategorie().filter(e=> e.id==cat.target.value);
-    console.log("select 3");
+    this.categorie.souscategorie(cat.target.value).subscribe((data) => {
+      this.souscat = data;
+      console.log(this.souscat);
+      
+     })  ;
   }
   DescRequirement(s){
     if(s.target.value=="Autre"){
@@ -109,7 +130,7 @@ export class ModifDialogComponent implements OnInit {
       urg:value.urgence,
       desc:value.description,
       id_affect:this.rec.id_affect}
-      
+      console.log('data',this.data.urg)
       //send it to api
       this.recService.updateRec(this.dialogData.recId, this.data).subscribe({
         complete: () => {

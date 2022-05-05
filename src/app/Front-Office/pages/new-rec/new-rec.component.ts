@@ -23,7 +23,7 @@ export class NewRecComponent implements OnInit {
   id_etat=1;
   id_affect="";
   date = new Date();
-
+  processing=true;
   constructor(private categorie: CategorieService,
      private userService: UtilisateurService,
       private recService: RecServiceService,
@@ -39,7 +39,14 @@ export class NewRecComponent implements OnInit {
     this.gouvernorat=localStorage.getItem('gouvernorat');
     this.ville=localStorage.getItem('ville');
     this.agence=localStorage.getItem('agence');
-    this.cat=this.categorie.categorie();
+    
+    this.categorie.categorie().subscribe((data) => {
+      this.cat = data;
+      console.log(this.cat);
+      
+      this.processing=false;
+     })  
+
     this.form = this.fb.group({  
       matricule: this.matricule,
       gouvernorat: this.gouvernorat,
@@ -56,8 +63,16 @@ export class NewRecComponent implements OnInit {
   cat : any = [];
   souscat : any = [];
 
-  onSelect3(cat){
-    this.souscat=this.categorie.souscategorie().filter(e=> e.id==cat.target.value);
+  onSelect3(){
+    var k=<string> this.categ.value;
+    console.log("k is",k)
+    this.categorie.souscategorie(k).subscribe((data) => {
+      this.souscat = data;
+      console.log(this.souscat);
+      console.log(this.categ.value)
+
+      
+     })  ;
   }
 
  
@@ -103,7 +118,7 @@ data
                   id_lieu:this.id_lieu,
                   id_etat:this.id_etat,
                   date:this.date,
-                  id_sousCateg:value.sousCateg,
+                  Id_sousCateg:value.sousCateg,
                   urg:value.urgence,
                   desc:value.description,
                   id_affect:this.id_affect}
