@@ -8,6 +8,12 @@
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: stretch;
+  background-image: linear-gradient(to right bottom, 
+  rgba(22, 22, 22, 0.5),
+  rgba(0, 0, 0, 0.541)),
+  url("src/assets/Images/pexels-burst-374023.jpg");
+ background-repeat: no-repeat;
+ background-position: center;
 }
 .toggle input {
   width: 0;
@@ -117,13 +123,13 @@ h2 small {
 .responsive-table li {
   
     border-radius: 3px;
-    padding: 25px 30px;
+    padding: 20px 30px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
 }
 .responsive-table .table-header {
-    background-color: #000000;
+    background-color: #030413;
     font-size: 14px;
     color:white;
     text-transform: uppercase;
