@@ -47,6 +47,8 @@ import { ModifNumDialogComponent } from './Front-Office/pages/profil/modif-num-d
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +75,8 @@ import { ModifNumDialogComponent } from './Front-Office/pages/profil/modif-num-d
     DeleteFDialogComponent,
     AddFDialogComponent,
     ModifNumDialogComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
