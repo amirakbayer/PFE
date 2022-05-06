@@ -43,7 +43,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { ModifFDialogComponent } from './Front-Office/pages/fournisseurs/modif-fdialog/modif-fdialog.component';
 import { DeleteFDialogComponent } from './Front-Office/pages/fournisseurs/delete-fdialog/delete-fdialog.component';
 import { AddFDialogComponent } from './Front-Office/pages/fournisseurs/add-fdialog/add-fdialog.component';
-import { ModifNumDialogComponent } from './Front-Office/pages/profil/modif-num-dialog/modif-num-dialog.component';
+
 
 
 
@@ -74,7 +74,7 @@ import { ModifNumDialogComponent } from './Front-Office/pages/profil/modif-num-d
     ModifFDialogComponent,
     DeleteFDialogComponent,
     AddFDialogComponent,
-    ModifNumDialogComponent,
+ 
     
     
   ],

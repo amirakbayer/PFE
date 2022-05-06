@@ -12,7 +12,7 @@ body{
   padding: 30px;
 
   
-	background: linear-gradient(-45deg, #7e807ec5, #a06c6c);
+	background: linear-gradient(-45deg, #7e807ec5, #c5a1a1);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	height: 100vh;

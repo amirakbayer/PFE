@@ -17,7 +17,7 @@
   width: 200%;
   position: absolute; 
   overflow: hidden;
-  animation: marquee 0s both;
+  animation: marquee 2s both;
 }
 /* span with text */
 .marquee span {
@@ -103,7 +103,7 @@
 
 
   position: relative;
-  animation: marquee 5s linear infinite;
+  animation: marquee 6s linear infinite;
   overflow: hidden;
  
 	
@@ -123,7 +123,7 @@
 
 
   position: relative;
-  animation: marquee 5s linear infinite;
+  animation: marquee 6s linear infinite;
   overflow: hidden;
  
 	
