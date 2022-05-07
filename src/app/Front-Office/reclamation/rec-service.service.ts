@@ -5,7 +5,9 @@ import { catchError, map } from 'rxjs/operators';
 import { reclam } from './reclam';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RecServiceService {
   baseUri: string = 'http://localhost:4000/rec';
   headers = new HttpHeaders().set('Content-Type', 'application/json');

@@ -43,6 +43,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { ModifFDialogComponent } from './Front-Office/pages/fournisseurs/modif-fdialog/modif-fdialog.component';
 import { DeleteFDialogComponent } from './Front-Office/pages/fournisseurs/delete-fdialog/delete-fdialog.component';
 import { AddFDialogComponent } from './Front-Office/pages/fournisseurs/add-fdialog/add-fdialog.component';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 
@@ -97,6 +99,7 @@ import { AddFDialogComponent } from './Front-Office/pages/fournisseurs/add-fdial
     MatSortModule,
     MatPaginatorModule,
     MatIconModule,
+    MatTabsModule
   ],
   providers: [
     RecServiceService,
