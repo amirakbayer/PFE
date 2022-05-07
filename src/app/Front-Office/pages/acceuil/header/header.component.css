@@ -2,6 +2,39 @@
   display: contents; 
 }
 
+
+
+
+
+.marquee {
+  
+  overflow: hidden;
+  position: relative;
+}
+/* nested div inside the container */
+.marquee div {
+  display: block;
+  width: 200%;
+  position: absolute; 
+  overflow: hidden;
+  animation: marquee 2s both;
+}
+/* span with text */
+.marquee span {
+  float: inline-start;
+  
+}
+/* keyframe */
+@keyframes marquee {
+  100% { top: -100%; }
+  50% { top : 100%; }
+}
+
+
+
+
+
+
 .home-container {
   width: 100%;
   display: flex;
@@ -27,9 +60,17 @@
    url("src/assets/Images/pexels-burst-374023.jpg");**/
   background-repeat: no-repeat;
   background-position: center;
+
+
+
+
+
+
+
+  
 }
 .home-text {
-  color: #fff;
+  color: rgba(180, 180, 180, 0.733);
   text-transform: uppercase;
   display: block;
   font-size: 40px;
@@ -55,13 +96,36 @@
 .home-text02 {
   color: #fff7f7;
   text-align: center;
-  font-weight: 50;
-  letter-spacing: 1px;
-  display: grid;
-  font-size: 20px;
- 
+  font-weight: 20;
+  letter-spacing: 5px;
+  display: block;
+  font-size: 30px;
 
+
+  position: relative;
+  animation: marquee 6s linear infinite;
+  overflow: hidden;
+ 
+	
+	
   
+}
+
+
+.home-text03 {
+  color: #fff7f7;
+  text-align: center;
+  font-weight: 20;
+  letter-spacing: 5px;
+  display: block;
+  font-size: 20px;
+  
+
+
+  position: relative;
+  animation: marquee 6s linear infinite;
+  overflow: hidden;
+ 
 	
 	
   
