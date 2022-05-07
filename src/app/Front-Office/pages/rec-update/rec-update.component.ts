@@ -4,7 +4,6 @@ import { AfterViewInit, Component,Inject, OnInit, ViewChild ,ViewEncapsulation} 
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { ProgressComponent } from './progress/progress.component';
 import { RecServiceService } from '../../reclamation/rec-service.service';
 import { MatStepper } from '@angular/material/stepper';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';

@@ -12,7 +12,7 @@ body{
   background-size: cover;
   justify-content: center;
     background-color: #080710;
-    background-image: url("src/assets/Images/pexels-peter-olexa-3875821.jpg");
+    /**background-image: url("src/assets/Images/pexels-peter-olexa-3875821.jpg");**/
     background-repeat: no-repeat;
   background-position: center;
 }

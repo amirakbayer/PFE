@@ -40,13 +40,16 @@ export class ReducedComponent implements OnInit {
      console.log(this.allRecs)
     })    
   }
+  T=[];
   readOwnRecs(){
     this.recService.getReclamsOfUser(this.id)
     .subscribe((data) => {
       this.ownRecs = data 
       console.log("ownRecs is",this.ownRecs);
+      
       //this.allRecs = Array.of(this.allRecs);
-     }) 
+     
+  }) 
     //this.ownRecs=this.recService.getReclamsOfUser(this.id)
        
   }
