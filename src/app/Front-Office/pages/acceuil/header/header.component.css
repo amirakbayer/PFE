@@ -53,11 +53,11 @@
   flex-direction: column;
   background-size: cover;
   justify-content: center;
-  /**background-image: 
+  background-image: 
   linear-gradient(to right bottom, 
    rgba(22, 22, 22, 0.5),
    rgba(0, 0, 0, 0.541)),
-   url("src/assets/Images/pexels-burst-374023.jpg");**/
+   url("src/assets/Images/pexels-burst-374023.jpg");
   background-repeat: no-repeat;
   background-position: center;
 

@@ -1,6 +1,6 @@
 <mat-tab-group mat-align-tabs="center">
   <mat-tab label="Mes réclamations">
-    <div  class="container">
+    <div  class="container" *ngIf="!processing">
       <ul class="responsive-table">
         <li class="table-header">
           <div class="col col-1">ID</div>
@@ -18,7 +18,7 @@
     </div>
   </mat-tab>
   <mat-tab *ngIf=" role=='assistant' " label="Réclamations en charge">
-    <div  class="container">
+    <div  class="container" *ngIf="!processing2">
       <ul class="responsive-table">
         <li class="table-header">
           <div class="col col-1">ID</div>
@@ -36,7 +36,7 @@
     </div>
   </mat-tab>
   <mat-tab *ngIf=" role=='responsable' " label="Réclamations en charge">
-    <div  class="container">
+    <div  class="container" *ngIf="!processing1">
     <ul class="responsive-table">
       <li class="table-header">
         <div class="col col-1">ID</div>
@@ -47,8 +47,8 @@
       <li class="table-row table-hover" *ngFor="let rec of allRecs"routerLink="/reclamation-update/{{rec._id}}">
         <div class="col col-1" >{{rec._id}}</div>
         <div class="col col-2" >{{rec.date}}</div>
-        <div class="col col-3" >{{categ(rec.Id_sousCateg)}}</div>
-        <div class="col col-4" >{{etatN(rec.id_etat)}}</div>
+        <div class="col col-3" >{{rec.categorie}}</div>
+        <div class="col col-4" >{{rec.etat}}</div>
       </li>
     </ul>
   </div></mat-tab>

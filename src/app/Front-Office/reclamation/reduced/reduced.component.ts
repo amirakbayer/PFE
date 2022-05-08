@@ -41,10 +41,11 @@ export class ReducedComponent implements OnInit {
     
     this.a=1;
   }
-
+T1;
   readRecs(){
     this.recService.getRec().subscribe((data) => {
-     this.allRecs = data;
+     this.T1 = data;
+     this.allRecs=Array.from({length:this.T1.length}, (_, k) => this.transformData1(k));
      console.log(this.allRecs)
     })    
   }
@@ -62,42 +63,45 @@ export class ReducedComponent implements OnInit {
     //this.ownRecs=this.recService.getReclamsOfUser(this.id)
        
   }
+  T2;
   readAffRecs(){
     this.recService.getAffRecs(this.id)
     .subscribe((data) => {
-      this.affRecs = data 
-      console.log("affRecs is",this.ownRecs);
+      this.T2 = data; 
+      this.affRecs=Array.from({length:this.T2.length}, (_, k) => this.transformData2(k));
+      console.log("affRecs is",this.affRecs);
       //this.allRecs = Array.of(this.allRecs);
      })  
   }
   
-
+  processing=true;
   transformData(k: number):TableData{
     //it's better if I get the raw data here first so I can use this function to update 'Updates'
     var cat;
     var sCateg;
-    var processing=true;
+     
     this.categorie.getSousCatDet(this.T[k].Id_sousCateg).subscribe((data) =>{
       sCateg=data;
     this.categorie.getCatDet(sCateg.id2).subscribe(
       
       {
         next:(res)=>{
-          cat= data.nom;
+          cat= res.nom;
       console.log('cat name is',cat)
-      processing=false;
-          return{
-            _id: this.T[k]._id,
-            date: this.T[k].date ,
-            categorie: cat ,
-            etat: this.etatN(this.T[k].id_etat)}
+      this.ownRecs[k].categorie=cat;
+      console.log('ownRecs after subscribe',this.ownRecs)
+      if(k==this.ownRecs.length-1){
+        this.processing=false;
+      }
+          
         }, error:()=>{
-          alert("échec lors de l'envoi de la réclamation");
+          alert("échec lors de chargement");
+          
         }
       }
       )
     })
-     return {
+    return {
       _id: this.T[k]._id,
       date: this.T[k].date ,
       categorie: '' ,
@@ -107,13 +111,89 @@ export class ReducedComponent implements OnInit {
    
  }
 
+
+ processing1=true;
+  transformData1(k: number):TableData{
+    //it's better if I get the raw data here first so I can use this function to update 'Updates'
+    var cat;
+    var sCateg;
+     
+    this.categorie.getSousCatDet(this.T1[k].Id_sousCateg).subscribe((data) =>{
+      sCateg=data;
+    this.categorie.getCatDet(sCateg.id2).subscribe(
+      
+      {
+        next:(res)=>{
+          cat= res.nom;
+      console.log('cat name is',cat)
+      this.allRecs[k].categorie=cat;
+      console.log('allRecs after subscribe',this.allRecs)
+      if(k==this.allRecs.length-1){
+        this.processing1=false;
+      }
+          
+        }, error:()=>{
+          alert("échec lors de chargement");
+          
+        }
+      }
+      )
+    })
+    return {
+      _id: this.T1[k]._id,
+      date: this.T1[k].date ,
+      categorie: '' ,
+      etat: this.etatN(this.T1[k].id_etat)
+      
+     }
+   
+ }
+
+
+ processing2=true;
+  transformData2(k: number):TableData{
+    //it's better if I get the raw data here first so I can use this function to update 'Updates'
+    var cat;
+    var sCateg;
+     
+    this.categorie.getSousCatDet(this.T2[k].Id_sousCateg).subscribe((data) =>{
+      sCateg=data;
+    this.categorie.getCatDet(sCateg.id2).subscribe(
+      
+      {
+        next:(res)=>{
+          cat= res.nom;
+      console.log('cat name is',cat)
+      this.affRecs[k].categorie=cat;
+      console.log('affRecs after subscribe',this.affRecs)
+      if(k==this.affRecs.length-1){
+        this.processing2=false;
+      }
+          
+        }, error:()=>{
+          alert("échec lors de chargement");
+          
+        }
+      }
+      )
+    })
+    return {
+      _id: this.T2[k]._id,
+      date: this.T2[k].date ,
+      categorie: '' ,
+      etat: this.etatN(this.T2[k].id_etat)
+      
+     }
+   
+ }
+
   aSet(x:number){
     this.a=x;
   }
   categ(idS){
-    this.categorie.getCatDet(idS).subscribe((data) =>{
-    return data.nom;
-    });
+    //this.categorie.getCatDet(idS).subscribe((data) =>{
+    //return data.nom;
+    //});
   }
   etatN(id){
     return this.etat.etatName(id)
