@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UtilisateurService } from '../../utilisateur/utilisateur.service';
 
 @Component({
@@ -13,15 +14,22 @@ role;
 gouv;
 ville;
 agence;
-  constructor(private utilisateur : UtilisateurService) { }
+  constructor(private utilisateur : UtilisateurService,
+    private router: Router) { }
 
   ngOnInit(): void {
-this.id=localStorage.getItem('id');
+    if(localStorage.length==0){
+      this.router.navigate(['/login']);
+      alert("veuillez vous connecter d'abord");
+    }else {
+      this.id=localStorage.getItem('id');
 this.user=this.utilisateur.getUser(this.id);
 this.role=localStorage.getItem('role');
 this.gouv=localStorage.getItem('gouvernorat');
 this.ville=localStorage.getItem('ville');
 this.agence=localStorage.getItem('agence');
+    }
+
   }
 
 }

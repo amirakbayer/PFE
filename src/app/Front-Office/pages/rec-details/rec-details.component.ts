@@ -35,6 +35,8 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
   currentState: any;
   selectedCategory;
   processing=true;
+  assistant;
+  isAffected=false;
   
   @ViewChild('stepper1',{ static: false }) stepper1: MatStepper;
   wrong=false;
@@ -54,7 +56,11 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
   }
   //<full [ident]="id"></full>
   ngOnInit() {
-    this.gouvernorat=localStorage.getItem('gouvernorat');
+    if(localStorage.length==0){
+      this.router.navigate(['/login']);
+      alert("veuillez vous connecter d'abord");
+    }else {
+      this.gouvernorat=localStorage.getItem('gouvernorat');
     this.ville=localStorage.getItem('ville');
     this.agence=localStorage.getItem('agence');
     //this.cat=this.categorie.categorie();
@@ -66,6 +72,15 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
     });
     this.recService.getRecDet(this.id).subscribe((data) => {
       this.rec=data;
+      if(this.rec.id_affect!=""){
+        this.utilisateur.getUserDet(this.rec.id_affect).subscribe((data)=>{
+        this.assistant=data
+        this.isAffected=true
+        this.processing=false; })
+      }else{
+        this.processing=false;
+        
+      }
       console.log(this.rec)
       console.log("Id_etat: ", this.rec.id_etat);
     if(this.rec.id_etat==1){
@@ -77,7 +92,7 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
     if(this.rec.id_etat==7){
       this.currentState = 2;
     }
-    this.processing=false;
+    
     });
     
     
@@ -93,6 +108,8 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
       description: this.description,
       urgence:this.urgence
   });  
+    }
+    
   }
 
   getRec(id) {

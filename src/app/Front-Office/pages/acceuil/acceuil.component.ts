@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-acceuil',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AcceuilComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    if(localStorage.length==0){
+      this.router.navigate(['/login']);
+      alert("veuillez vous connecter d'abord");
+    }
   }
 
 }

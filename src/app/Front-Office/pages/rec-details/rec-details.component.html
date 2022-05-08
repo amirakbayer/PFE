@@ -17,8 +17,8 @@
           <full [id]="rec._id"></full>
           
           <p ><b>Assistant en charge :    </b>
-            <span *ngIf="rec.id_affect!=undefined">{{userName(rec.id_affect)}}</span>
-            <span *ngIf="rec.id_affect==undefined">la réclamation n'est pas encore affectée</span> </p>
+            <span *ngIf="isAffected">{{assistant.nom}} {{assistant.prenom}}</span>
+            <span *ngIf="!isAffected">la réclamation n'est pas encore affectée</span> </p>
           
           
           

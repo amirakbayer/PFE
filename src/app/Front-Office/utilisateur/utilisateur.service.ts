@@ -5,18 +5,68 @@ import { LieuService } from './lieu.service';
 import { RoleService } from './role.service';
 import { utilisateur } from './utilisateur';
 
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UtilisateurService {
-
+  baseUri: string = 'http://localhost:4000/utilisateur';
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  
   T: Array<utilisateur> = [
     new utilisateur("01","1234","jdbdi","abc","def",123456,"bcbj@hj.com","1","1"),
     new utilisateur("02","5678","jdbdi","abc","def",123456,"bcbj@hj.com","2","2"),
     new utilisateur("03","9090","jdbdi","abc","def",123456,"bcbj@hj.com","3","3"),
 ];
-  user=this.T[1];
-  constructor(private role:RoleService, private lieu:LieuService) { }
+  user=this.T[1];    
+  constructor( private http: HttpClient,
+    private role:RoleService,
+     private lieu:LieuService) { }
+
+     errorMgmt(error: HttpErrorResponse) {
+      let errorMessage = '';
+      if (error.error instanceof ErrorEvent) {
+        // Get client-side error
+        errorMessage = error.error.message;
+      } else {
+        // Get server-side error
+        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      }
+      console.log(errorMessage);
+      return throwError(() => {
+        return errorMessage;
+      });
+    }
+
+
+    getUserDetAtAuth(matr,mdp): Observable<any>{
+      let url = `${this.baseUri}/readUser/${matr}/${mdp}`;
+      return this.http.get(url, { headers: this.headers }).pipe(
+        map((res: Response) => {
+          return res || {};
+        }),
+        catchError(this.errorMgmt)
+      );
+    }
+
+    getUserDet(id): Observable<any>{
+      let url = `${this.baseUri}/readUser/${id}`;
+      return this.http.get(url, { headers: this.headers }).pipe(
+        map((res: Response) => {
+          return res || {};
+        }),
+        catchError(this.errorMgmt)
+      );
+    }
+    getAssistants(id ){
+      let url = `${this.baseUri}/readAss/${id}`;
+      return  this.http.get(url);
+    }
+
 
   UserExists(mat:string,mdp:string){
     

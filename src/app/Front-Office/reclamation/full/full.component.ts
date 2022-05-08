@@ -18,13 +18,17 @@ export class FullComponent implements OnInit {
   processing=true;
   categ;
   sCateg;
+  gouv;
+  ville;
+  agence;
+  matr;
   //rec! : reclam;
   //R0= new reclam("0","000","en attente","01/01/2000","00",1);
   constructor(
     private recService: RecServiceService,
     private lieu: LieuService,
     private categorie: CategorieService,
-    private utilisateur:UtilisateurService) { 
+    private utilisateur:UtilisateurService,) { 
     
 
   }
@@ -32,15 +36,26 @@ export class FullComponent implements OnInit {
   ngOnInit(): void {
     this.recService.getRecDet(this.id).subscribe((data) => {
       this.rec=data;
-      this.categorie.getSousCatDet(this.rec.Id_sousCateg).subscribe((data) =>{
-        this.sCateg=data;
-        this.categorie.getCatDet(this.sCateg.id2).subscribe((data) =>{
-          this.categ=data;
-          console.log("scateg",this.sCateg)
-      console.log("categ",this.categ)
-      this.processing=false
+      this.utilisateur.getUserDet(this.rec.id_reclamant).subscribe((data)=>{
+        this.matr=data.matr;
+        this.lieu.getLieuDet(this.rec.id_lieu).subscribe((data)=>{
+          this.gouv=data.gouv;
+          this.ville=data.ville;
+          this.agence=data.agence;
+          console.log("lieu data",data)
+          this.categorie.getSousCatDet(this.rec.Id_sousCateg).subscribe((data) =>{
+            this.sCateg=data;
+            this.categorie.getCatDet(this.sCateg.id2).subscribe((data) =>{
+              this.categ=data;
+              console.log("scateg",this.sCateg)
+          console.log("categ",this.categ)
+          this.processing=false
+            })
+          })
         })
       })
+      
+      
     });
     //if(this.service.IdExists(this.ident)){
      // this.rec=<reclam> this.service.getRecDet(this.ident);
@@ -55,16 +70,7 @@ export class FullComponent implements OnInit {
     
   }
 
-  gouv(id){
-    return this.lieu.getGouv(id);
-  }
-
-  ville(id){
-    return this.lieu.getVil(id);
-  }
-  agence(id){
-    return this.lieu.getAg(id);
-  }
+  
  
   urgenceN(idU){
     if(idU==3){

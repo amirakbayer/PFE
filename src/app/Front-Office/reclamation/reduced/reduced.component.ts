@@ -79,7 +79,7 @@ T1;
     //it's better if I get the raw data here first so I can use this function to update 'Updates'
     var cat;
     var sCateg;
-     
+     var et;
     this.categorie.getSousCatDet(this.T[k].Id_sousCateg).subscribe((data) =>{
       sCateg=data;
     this.categorie.getCatDet(sCateg.id2).subscribe(
@@ -90,9 +90,16 @@ T1;
       console.log('cat name is',cat)
       this.ownRecs[k].categorie=cat;
       console.log('ownRecs after subscribe',this.ownRecs)
-      if(k==this.ownRecs.length-1){
-        this.processing=false;
-      }
+      this.etat.getEtatDet(this.T[k].id_etat).subscribe((data)=>
+      { et=data.altNom;
+        this.ownRecs[k].etat=et;
+        console.log("etat is",et)
+        if(k==this.ownRecs.length-1){
+          this.processing=false;
+          console.log("ownrecs at last", this.ownRecs)
+        }
+      })
+      
           
         }, error:()=>{
           alert("échec lors de chargement");
@@ -105,7 +112,7 @@ T1;
       _id: this.T[k]._id,
       date: this.T[k].date ,
       categorie: '' ,
-      etat: this.etatN(this.T[k].id_etat)
+      etat: ''
       
      }
    
@@ -117,7 +124,7 @@ T1;
     //it's better if I get the raw data here first so I can use this function to update 'Updates'
     var cat;
     var sCateg;
-     
+    var et;
     this.categorie.getSousCatDet(this.T1[k].Id_sousCateg).subscribe((data) =>{
       sCateg=data;
     this.categorie.getCatDet(sCateg.id2).subscribe(
@@ -128,9 +135,15 @@ T1;
       console.log('cat name is',cat)
       this.allRecs[k].categorie=cat;
       console.log('allRecs after subscribe',this.allRecs)
-      if(k==this.allRecs.length-1){
-        this.processing1=false;
-      }
+      this.etat.getEtatDet(this.T1[k].id_etat).subscribe((data)=>
+      { et=data.nom;
+        this.allRecs[k].etat=et;
+        console.log("etat is",et)
+        if(k==this.allRecs.length-1){
+          this.processing1=false;
+          console.log("allrecs at last", this.allRecs)
+        }
+      })
           
         }, error:()=>{
           alert("échec lors de chargement");
@@ -143,7 +156,7 @@ T1;
       _id: this.T1[k]._id,
       date: this.T1[k].date ,
       categorie: '' ,
-      etat: this.etatN(this.T1[k].id_etat)
+      etat: ''
       
      }
    
@@ -155,7 +168,7 @@ T1;
     //it's better if I get the raw data here first so I can use this function to update 'Updates'
     var cat;
     var sCateg;
-     
+    var et; 
     this.categorie.getSousCatDet(this.T2[k].Id_sousCateg).subscribe((data) =>{
       sCateg=data;
     this.categorie.getCatDet(sCateg.id2).subscribe(
@@ -166,9 +179,15 @@ T1;
       console.log('cat name is',cat)
       this.affRecs[k].categorie=cat;
       console.log('affRecs after subscribe',this.affRecs)
-      if(k==this.affRecs.length-1){
-        this.processing2=false;
-      }
+      this.etat.getEtatDet(this.T2[k].id_etat).subscribe((data)=>
+      { et=data.nom;
+        this.affRecs[k].etat=et;
+        console.log("etat is",et)
+        if(k==this.affRecs.length-1){
+          this.processing2=false;
+          console.log("affrecs at last", this.affRecs)
+        }
+      })
           
         }, error:()=>{
           alert("échec lors de chargement");
@@ -181,7 +200,7 @@ T1;
       _id: this.T2[k]._id,
       date: this.T2[k].date ,
       categorie: '' ,
-      etat: this.etatN(this.T2[k].id_etat)
+      etat: ''
       
      }
    
