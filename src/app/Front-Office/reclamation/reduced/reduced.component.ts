@@ -24,7 +24,8 @@ export class ReducedComponent implements OnInit {
   id;
   affRecs;
   allRecs;
-  a
+  a=0;
+  
   constructor(private recService:RecServiceService, 
     private categorie:CategorieService , 
     private route: ActivatedRoute,
