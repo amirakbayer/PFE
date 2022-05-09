@@ -4,7 +4,6 @@ import { AfterViewInit, Component,Inject, OnInit, ViewChild ,ViewEncapsulation} 
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { ProgressComponent } from './progress/progress.component';
 import { RecServiceService } from '../../reclamation/rec-service.service';
 import { MatStepper } from '@angular/material/stepper';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -55,7 +54,10 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
   private sub: any;
   rawData;
   Updates;
-  processing=true
+  processing=true;
+  reclamant;
+  assistant;
+  isAffected=false;
   @ViewChild('stepper1',{ static: false }) stepper1: MatStepper;
   @ViewChild('stepper2',{ static: false }) stepper2: MatStepper;
 
@@ -90,25 +92,45 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
     }
   
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params['id']; // (+) converts string 'id' to a number
-      
-       //In a real app: dispatch action to load the details here.
-      
-   });
-   this.firstFormGroup = this._formBuilder.group({
-    firstCtrl: new FormControl('',Validators.required),
-  });
+    if(localStorage.length==0){
+      this.router.navigate(['/login']);
+      alert("veuillez vous connecter d'abord");
+    }else {
+      this.sub = this.route.params.subscribe(params => {
+        this.id = params['id']; // (+) converts string 'id' to a number
+        
+         //In a real app: dispatch action to load the details here.
+        
+     });
+     this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: new FormControl('',Validators.required),
+    });
+    
+    this.Updates=Array.from({length:this.rawData.length}, (_, k) => this.transformData(k));
   
-  this.Updates=Array.from({length:this.rawData.length}, (_, k) => this.transformData(k));
-
-  this.recService.getRecDet(this.id).subscribe((data) => {
-    this.rec=data;
-    this.processing=false;
-  });
-this.assistants=[{id:'1',name:'john Smith'},] ;///here we put the api to get assistants
-this.role=localStorage.getItem('role');
-console.log(this.role);
+    this.recService.getRecDet(this.id).subscribe((data) => {
+      this.rec=data;
+      this.utilisateur.getUserDet(this.rec.id_reclamant).subscribe((data)=>{
+        this.reclamant=data
+        if(this.rec.id_affect!=""){
+          this.utilisateur.getUserDet(this.rec.id_affect).subscribe((data)=>{
+          this.assistant=data
+          this.isAffected=true})
+        }
+          this.utilisateur.getAssistants(2).subscribe((data)=>{
+            this.assistants=data
+            this.processing=false;
+          })
+        //})
+      })
+      
+      
+    });
+  
+  this.role=localStorage.getItem('role');
+  console.log(this.role);
+    }
+    
   }
   getRec(id) {
     

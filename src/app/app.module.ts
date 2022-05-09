@@ -6,23 +6,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FullComponent } from './Front-Office/reclamation/full/full.component';
 import { ReducedComponent } from './Front-Office/reclamation/reduced/reduced.component';
-import { EtatComponent } from './Front-Office/reclamation/etat/etat.component';
+
 import { NavbarComponent } from './Front-Office/pages/navbar/navbar.component';
 import { AcceuilComponent } from './Front-Office/pages/acceuil/acceuil.component';
-import { ContactComponent } from './Front-Office/pages/contact/contact.component';
+
 import { NewRecComponent } from './Front-Office/pages/new-rec/new-rec.component';
 import { RecDetailsComponent } from './Front-Office/pages/rec-details/rec-details.component';
 import { RecServiceService } from './Front-Office/reclamation/rec-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EmplacementService } from './Front-Office/pages/new-rec/emplacement.service';
+
 import { HeaderComponent } from './Front-Office/pages/acceuil/header/header.component';
 import { UtilisateurComponent } from './Front-Office/utilisateur/utilisateur/utilisateur.component';
 import { AuthentificationComponent } from './Front-Office/pages/authentification/authentification.component';
 import { ProfilComponent } from './Front-Office/pages/profil/profil.component';
 import { FournisseursComponent } from './Front-Office/pages/fournisseurs/fournisseurs.component';
 import { RecUpdateComponent } from './Front-Office/pages/rec-update/rec-update.component';
-import { ProgressComponent } from './Front-Office/pages/rec-update/progress/progress.component';
-import { ProgressStepComponent } from './Front-Office/pages/rec-update/progress/progress-step/progress-step.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -56,10 +55,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     AppComponent,
     FullComponent,
     ReducedComponent,
-    EtatComponent,
+    
     NavbarComponent,
     AcceuilComponent,
-    ContactComponent,
+    
     NewRecComponent,
     RecDetailsComponent,
     HeaderComponent,
@@ -68,8 +67,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     ProfilComponent,
     FournisseursComponent,
     RecUpdateComponent,
-    ProgressComponent,
-    ProgressStepComponent,
+    
     FileDialogComponent,
     ModifDialogComponent,
     DeleteDialogComponent,
@@ -103,7 +101,7 @@ import {MatTabsModule} from '@angular/material/tabs';
   ],
   providers: [
     RecServiceService,
-    EmplacementService
+    
   ],
   bootstrap: [AppComponent]
 })

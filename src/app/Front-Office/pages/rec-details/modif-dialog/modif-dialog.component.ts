@@ -39,47 +39,48 @@ export class ModifDialogComponent implements OnInit {
   ngOnInit(): void {
     this.recService.getRecDet(this.dialogData.recId).subscribe((data) => {
       this.rec=data;
-      this.categorie.getSousCatDet(this.rec.Id_sousCateg).subscribe((data)=>{
-        this.s=data;
-        this.categorie.getCatDet(this.s.id2).subscribe((data)=>{
-          this.defaultCateg=data._id;
-          this.categorie.categorie().subscribe((data) => {
-            this.cat = data;
-            console.log(this.cat);
-            this.matr=this.utilisateur.getUserMatr(this.rec.id_reclamant);
-    this.g=this.lieu.getGouv(this.rec.id_lieu);
-    this.v=this.lieu.getVil(this.rec.id_lieu);
-    this.a=this.lieu.getAg(this.rec.id_lieu)
-    this.form = this.fb.group({  
-      matricule: this.matr,
-      gouvernorat: this.g,
-      ville: this.v,
-      agence: this.a,
-      categ: this.categ,
-      sousCateg: this.sousCateg,
-      description: this.description,
-      urgence:this.urgence
-  });  
-  this.categ.setValue(this.defaultCateg);
-  this.sousCateg.setValue(this.rec.Id_sousCateg);
-  this.description.setValue(this.rec.desc);
-  this.urgence.setValue(this.rec.urg);
-  console.log(this.sousCateg);
-  this.categorie.souscategorie(this.categ.value).subscribe((data) => {
-    this.souscat = data;
-    console.log(this.souscat);
-    this.processing=false;
-    console.log('rec',this.rec.urg);
-    console.log('control',this.urgence.value);
-   })  ;
+      this.lieu.getLieuDet(this.rec.id_lieu).subscribe((data)=>{
+        this.g=data.gouv;
+        this.v=data.ville;
+        this.a=data.agence;
+        this.categorie.getSousCatDet(this.rec.Id_sousCateg).subscribe((data)=>{
+          this.s=data;
+          this.categorie.getCatDet(this.s.id2).subscribe((data)=>{
+            this.defaultCateg=data._id;
+            this.categorie.categorie().subscribe((data) => {
+              this.cat = data;
+              console.log(this.cat);
+              this.matr=this.utilisateur.getUserMatr(this.rec.id_reclamant);
       
-           })
+      this.form = this.fb.group({  
+        matricule: this.matr,
+        gouvernorat: this.g,
+        ville: this.v,
+        agence: this.a,
+        categ: this.categ,
+        sousCateg: this.sousCateg,
+        description: this.description,
+        urgence:this.urgence
+    });  
+    this.categ.setValue(this.defaultCateg);
+    this.sousCateg.setValue(this.rec.Id_sousCateg);
+    this.description.setValue(this.rec.desc);
+    this.urgence.setValue(this.rec.urg);
+    console.log(this.sousCateg);
+    this.categorie.souscategorie(this.categ.value).subscribe((data) => {
+      this.souscat = data;
+      console.log(this.souscat);
+      this.processing=false;
+      console.log('rec',this.rec.urg);
+      console.log('control',this.urgence.value);
+     })  ;
+        
+             })
+          })
         })
       })
+
       
-    
-      
-    
     });
     
   }

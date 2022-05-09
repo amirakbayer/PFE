@@ -18,12 +18,12 @@
           <full [id]="rec._id"></full>
           
           <p ><b>Assistant en charge :    </b>
-            <span *ngIf="rec.matr_affect!=undefined">{{userName(rec.id_affect)}}</span>
-            <span *ngIf="rec.matr_affect==undefined">la réclamation n'est pas encore affectée</span> </p>
+            <span *ngIf="isAffected">{{assistant.nom}} {{assistant.prenom}}</span>
+            <span *ngIf="!isAffected">la réclamation n'est pas encore affectée</span> </p>
           
-          <p> <b>Nom réclamant :    </b>{{userName(rec.id_reclamant)}} </p>
-          <p> <b>Numéro de téléphone :    </b>{{userPhone(rec.id_reclamant)}} </p>
-          <p> <b>Adresse email :    </b>{{userEmail(rec.id_reclamant)}} </p>
+          <p> <b>Nom réclamant :    </b>{{reclamant.nom}} {{reclamant.prenom}}</p>
+          <p> <b>Numéro de téléphone :    </b>{{reclamant.num_tel}} </p>
+          <p> <b>Adresse email :    </b>{{reclamant.email}} </p>
           
           
 
@@ -93,8 +93,8 @@
   
             <mat-select formControlName="firstCtrl" required>
               <mat-option>--</mat-option>
-              <mat-option *ngFor="let ass of assistants" [value]="ass.id">
-                {{ass.name}}
+              <mat-option *ngFor="let ass of assistants" [value]="ass._id">
+                {{ass.nom}} {{ass.prenom}}
               </mat-option>
             </mat-select>
             

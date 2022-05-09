@@ -16,6 +16,7 @@ export class ModifFDialogComponent implements OnInit {
   form : FormGroup;
   wrong=false;
   fournisseur;
+  defaultCateg;
   processing=true;
   constructor(@Inject(MAT_DIALOG_DATA) public dialogData: DialogData2,
   private dialogRef: MatDialogRef<AddFDialogComponent>,
@@ -25,23 +26,31 @@ export class ModifFDialogComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.cat=this.categorie.categorie();
+
     //get fournisseur from api with dialogData.id_f
     this.fourService.getFourDet(this.dialogData._id).subscribe((data) => {
       this.fournisseur=data;
-    this.form= this.fb.group({
-      nom: new FormControl('',Validators.required),
-      categ: new FormControl('',Validators.required),
-      adresse: new FormControl('',Validators.required),
-      num_tel: new FormControl('',Validators.required),
-      email: new FormControl('',Validators.required)
-    });
-    this.Categ.setValue(this.fournisseur.categ);
+      this.categorie.getCatDet(this.fournisseur.categ).subscribe((data)=>{
+        this.defaultCateg=data._id 
+        this.categorie.categorie().subscribe((data)=>{
+          this.cat=data;
+          this.form= this.fb.group({
+            nom: new FormControl('',Validators.required),
+            categ: new FormControl('',Validators.required),
+            adresse: new FormControl('',Validators.required),
+            num_tel: new FormControl('',Validators.required),
+            email: new FormControl('',Validators.required)
+        })
+        this.Categ.setValue(this.defaultCateg);
     this.Nom.setValue(this.fournisseur.nom);
     this.Adresse.setValue(this.fournisseur.adresse);
     this.Num_tel.setValue(this.fournisseur.num_tel);
     this.Email.setValue(this.fournisseur.email);
     this.processing=false;
+      })
+    
+    });
+    
   });
   }
   get Categ(){

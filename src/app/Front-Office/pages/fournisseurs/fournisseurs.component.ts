@@ -15,7 +15,7 @@ import { ModifFDialogComponent } from './modif-fdialog/modif-fdialog.component';
 export interface FournisseurData {
   _id:number;
   nom: string;
-  categ: number;
+  categ: string;
   adresse:string;
   num_tel: string;
   email: string;
@@ -58,15 +58,21 @@ export class FournisseursComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params['id']; // (+) converts string 'id' to a number
-      
-       //In a real app: dispatch action to load the details here.
-      
-   });
-   console.log('id is',this.id);
-   this.role=localStorage.getItem('role');
-   this.readFours();
+    if(localStorage.length==0){
+      this.router.navigate(['/login']);
+      alert("veuillez vous connecter d'abord");
+    }else {
+      this.sub = this.route.params.subscribe(params => {
+        this.id = params['id']; // (+) converts string 'id' to a number
+        
+         //In a real app: dispatch action to load the details here.
+        
+     });
+     console.log('id is',this.id);
+     this.role=localStorage.getItem('role');
+     this.readFours();
+    }
+    
   }
   categName(id){
     console.log(id);
@@ -74,13 +80,13 @@ export class FournisseursComponent implements OnInit, AfterViewInit {
     return this.categorie.getCatNameFromItsID(id);
     
   }
-
+F;
   readFours(){
     this.fourService.getFour().subscribe((data) => {
-     this.fournisseurs = data;
-     console.log(this.fournisseurs);
-     this.dataSource = new MatTableDataSource(this.fournisseurs);
-     this.processing=false;
+     this.F = data;
+     this.fournisseurs=Array.from({length:this.F.length}, (_, k) => this.transformData(k));
+     ;
+     
     })  
   }
 
@@ -111,6 +117,50 @@ applyFilter(event: Event) {
     this.dataSource.paginator.firstPage();
   }
 }
+
+transformData(k: number):FournisseurData{
+  //it's better if I get the raw data here first so I can use this function to update 'Updates'
+  var cat;
+  
+  this.categorie.getCatDet(this.F[k].categ).subscribe(
+    
+    {
+      next:(res)=>{
+        cat= res.nom;
+    console.log('cat name is',cat)
+    this.fournisseurs[k].categ=cat;
+    console.log('Fournisseurs after subscribe',this.fournisseurs)
+   
+      if(k==this.fournisseurs.length-1){
+        this.dataSource = new MatTableDataSource(this.fournisseurs)
+        this.processing=false;
+        console.log("fournisseurs at last", this.fournisseurs)
+      }
+    
+    
+        
+      }, error:()=>{
+        alert("échec lors de chargement");
+        
+      }
+    }
+    )
+  
+  return {
+    _id:this.F[k]._id,
+  nom: this.F[k].nom,
+  categ: ' ',
+  adresse:this.F[k].adresse,
+  num_tel: this.F[k].num_tel,
+  email: this.F[k].email,
+    
+   }
+ 
+}
+
+
+
+
 }
 
 

@@ -33,7 +33,11 @@ export class NewRecComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id_reclamant=localStorage.getItem('id');
+    if(localStorage.length==0){
+      this.router.navigate(['/login']);
+      alert("veuillez vous connecter d'abord");
+    }else {
+      this.id_reclamant=localStorage.getItem('id');
     this.id_lieu=localStorage.getItem('id_lieu');
     this.matricule=localStorage.getItem('matricule');
     this.gouvernorat=localStorage.getItem('gouvernorat');
@@ -56,7 +60,9 @@ export class NewRecComponent implements OnInit {
       sousCateg: this.sousCateg,
       description: this.description,
       urgence:this.urgence
-  });  
+  }); 
+    }
+     
   }
   
 
