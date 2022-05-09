@@ -109,9 +109,9 @@ export class ReducedComponent implements OnInit {
     this.a=x;
   }
   categ(idS){
-    this.categorie.getCatDet(idS).subscribe((data) =>{
-    return data.nom;
-    });
+    //*this.categorie.getCatDet(idS).subscribe((data) =>{
+    //*return data.nom;
+   //* }) ;
   }
   etatN(id){
     return this.etat.etatName(id)
