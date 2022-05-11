@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Ajouter fichier</h1>
-<div mat-dialog-content>
+<div mat-dialog-content *ngIf="!processing" >
 
     <form [formGroup]="secondFormGroup" (ngSubmit)="submit(secondFormGroup.value)">
           
@@ -9,8 +9,8 @@
 
           <mat-select formControlName="secondCtrl">
             <mat-option>--</mat-option>
-            <mat-option *ngFor="let f of fournisseurs" [value]="f.id">
-              {{f.name}}
+            <mat-option *ngFor="let f of fournisseurs" [value]="f._id">
+              {{f.nom}}
             </mat-option>
           </mat-select>
           

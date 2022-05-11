@@ -67,6 +67,13 @@ export class UtilisateurService {
       return  this.http.get(url);
     }
 
+    updateUser(id, data): Observable<any> {
+      let url = `${this.baseUri}/updateUser/${id}`;
+      return this.http
+        .put(url, data, { headers: this.headers })
+        .pipe(catchError(this.errorMgmt));
+    }
+
 
   UserExists(mat:string,mdp:string){
     

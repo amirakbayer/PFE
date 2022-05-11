@@ -17,9 +17,19 @@ import { getMatIconNameNotFoundError } from '@angular/material/icon';
 import { LieuService } from '../../utilisateur/lieu.service';
 import { CategorieService } from '../new-rec/categorie.service';
 import { UtilisateurService } from '../../utilisateur/utilisateur.service';
+import { UpdatesService } from './updates.service';
+import { EtatService } from '../../reclamation/etat.service';
+import { FileService } from './file-dialog/file.service';
+import { FournisseursService } from '../fournisseurs/fournisseurs.service';
+import { FileTypeService } from './file-dialog/file-type.service';
 
 export interface DialogData {
   Type: number;
+  id_rec;
+  id_etatA;
+  id_etatN;
+  id_user;
+  date;
 }
 
 
@@ -58,6 +68,8 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
   reclamant;
   assistant;
   isAffected=false;
+  id_user;
+  updateToSend;
   @ViewChild('stepper1',{ static: false }) stepper1: MatStepper;
   @ViewChild('stepper2',{ static: false }) stepper2: MatStepper;
 
@@ -65,8 +77,18 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['Date', 'Nom', 'Ancien_etat', 'Nouveau_etat','Fichier','Type_fichier','Fournisseur'];
   dataSource: MatTableDataSource<UpdatesData>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator,{ static: false })
+  set paginator(value: MatPaginator) {
+    if (this.dataSource){
+      this.dataSource.paginator = value;
+    }
+  }
+  @ViewChild(MatSort,{ static: false })
+  set sort(value: MatSort) {
+    if (this.dataSource){
+      this.dataSource.sort = value;
+    }
+  }
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -75,20 +97,15 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private lieu: LieuService,
     private categorie: CategorieService,
-    private utilisateur:UtilisateurService) { 
+    private utilisateur:UtilisateurService,
+    private updateService: UpdatesService,
+    private etatService: EtatService,
+    private fichierService: FileService,
+    private fournisseurService: FournisseursService,
+    private typeFichierService: FileTypeService) { 
       
     //transform
-    this.rawData=[   //////raw data should be received from api : getMisesAJours(id_rec) or something like that
-      {date: new Date(),Id_util:localStorage.getItem('id'),Id_Etat_a:2,Id_Etat_n:3,Id_f:8},
-      {date: new Date(),Id_util:localStorage.getItem('id'),Id_Etat_a:2,Id_Etat_n:3,Id_f:8},
-      {date: new Date(),Id_util:localStorage.getItem('id'),Id_Etat_a:2,Id_Etat_n:3,Id_f:8},
-      {date: new Date(),Id_util:localStorage.getItem('id'),Id_Etat_a:2,Id_Etat_n:3,Id_f:8},
-      {date: new Date(),Id_util:localStorage.getItem('id'),Id_Etat_a:2,Id_Etat_n:3,Id_f:8},
-    ];
-    this.Updates=Array.from({length:this.rawData.length}, (_, k) => this.transformData(k));
-    console.log('transformed data',this.Updates);
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(this.Updates);
+    
     }
   
   ngOnInit(): void {
@@ -96,6 +113,7 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/login']);
       alert("veuillez vous connecter d'abord");
     }else {
+      this.id_user=localStorage.getItem('id');
       this.sub = this.route.params.subscribe(params => {
         this.id = params['id']; // (+) converts string 'id' to a number
         
@@ -106,8 +124,7 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
       firstCtrl: new FormControl('',Validators.required),
     });
     
-    this.Updates=Array.from({length:this.rawData.length}, (_, k) => this.transformData(k));
-  
+      
     this.recService.getRecDet(this.id).subscribe((data) => {
       this.rec=data;
       this.utilisateur.getUserDet(this.rec.id_reclamant).subscribe((data)=>{
@@ -119,25 +136,44 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
         }
           this.utilisateur.getAssistants(2).subscribe((data)=>{
             this.assistants=data
-            this.processing=false;
+            this.readUpdates(this.rec._id);
+            //this.processing=false;
           })
         //})
       })
       
       
     });
+
+    
   
   this.role=localStorage.getItem('role');
   console.log(this.role);
     }
     
   }
+  u;
+  readUpdates(recId){
+    console.log("recId is",recId)
+      this.updateService.getRecUpdates(recId).subscribe((data)=>{
+        this.u=data;
+        console.log("u is", this.u);
+        if(this.u.length==0){
+          this.dataSource = new MatTableDataSource(this.Updates)
+          this.processing=false;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        } else{
+          this.Updates=Array.from({length:this.u.length}, (_, k) => this.transformData(k));
+        }
+      
+      })
+  }
   getRec(id) {
     
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    
   }
 
   gouv(id){
@@ -181,11 +217,23 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
   }
   
   nextstate(){
+    var oldState=this.rec.id_etat;
     this.rec.id_etat+=1;
     //here you use api to update rec with new id_etat
     this.recService.updateRec(this.id, this.rec).subscribe({
       complete: () => {
         console.log('Content updated successfully!');
+        this.updateToSend={
+          id_rec: this.rec._id,
+          id_utilisateur: this.id_user,
+          id_etatA: oldState,
+          id_etatN: this.rec.id_etat,
+          date: new Date(),
+          id_fichier: "",
+        }
+        this.updateService.saveUpdate(this.updateToSend).subscribe((data)=>{
+          console.log("update is saved successfully")
+        })
       },
       error: (e) => {
         console.log(e);
@@ -196,6 +244,7 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
   } 
   
   AffectAndState(id_affect){
+    var oldState=this.rec.id_etat;
     this.rec.id_affect=id_affect;
     this.rec.id_etat+=1;
     //here you use api to update rec with new id_etat and new id_affect
@@ -203,6 +252,17 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
     this.recService.updateRec(this.id, this.rec).subscribe({
       complete: () => {
         console.log('Content updated successfully!');
+        this.updateToSend={
+          id_rec: this.rec._id,
+          id_utilisateur: this.id_user,
+          id_etatA: oldState,
+          id_etatN: this.rec.id_etat,
+          date: new Date(),
+          id_fichier: "",
+        }
+        this.updateService.saveUpdate(this.updateToSend).subscribe((data)=>{
+          console.log("update is saved successfully")
+        })
       },
       error: (e) => {
         console.log(e);
@@ -211,12 +271,24 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
   }
 
   back(){
+    var oldState=this.rec.id_etat;
     this.rec.id_etat=2;
     console.log('new rec.id_etat ',this.rec.id_etat);
     //here you use api to update rec with new id_etat
     this.recService.updateRec(this.id, this.rec).subscribe({
       complete: () => {
         console.log('Content updated successfully!');
+        this.updateToSend={
+          id_rec: this.rec._id,
+          id_utilisateur: this.id_user,
+          id_etatA: oldState,
+          id_etatN: this.rec.id_etat,
+          date: new Date(),
+          id_fichier: "",
+        }
+        this.updateService.saveUpdate(this.updateToSend).subscribe((data)=>{
+          console.log("update is saved successfully")
+        })
         console.log('new stepper1 selected index ',this.stepper1);
     this.stepper2.selectedIndex = 1;
     console.log('new stepper2 selected index ',this.stepper2.selectedIndex);
@@ -233,11 +305,23 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
   }
 
   invalidate(){
+    var oldState=this.rec.id_etat
     this.rec.id_etat=8;
     //here you use api to update rec with new id_etat
     this.recService.updateRec(this.id, this.rec).subscribe({
       complete: () => {
         console.log('Content updated successfully!');
+        this.updateToSend={
+          id_rec: this.rec._id,
+          id_utilisateur: this.id_user,
+          id_etatA: oldState,
+          id_etatN: this.rec.id_etat,
+          date: new Date(),
+          id_fichier: "",
+        }
+        this.updateService.saveUpdate(this.updateToSend).subscribe((data)=>{
+          console.log("update is saved successfully")
+        })
       },
       error: (e) => {
         console.log(e);
@@ -249,6 +333,11 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
     this.dialog.open(FileDialogComponent, {
       data: {
         Type: index,
+        id_rec: this.rec._id,
+        id_etatA: this.rec.id_etat,
+        id_etatN: this.rec.id_etat,
+        id_user: this.id_user,
+        date: new Date() ,
       },
     });
   }
@@ -262,32 +351,109 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getName(id:number){
-    return 'John Smith'
+  downloadFile(nom){
+    var url=this.fichierService.downloadFile(nom)
+    window.open(url)
   }
-  getEtat(id:number){
-    return 'en attente'
-  }
-  getFileName(id:number){
-    return 'download'
-  }
-  getTypeF(id:number){
-    return 'Devis'
-  }
-  getFour(id:number){
-    return 'société A'
-  }
-
+//processingData=true;
    transformData(k: number):UpdatesData{
      //it's better if I get the raw data here first so I can use this function to update 'Updates'
-    return{
-      Date: this.rawData[k].date ,
-      Nom: this.getName(this.rawData[k].Id_util),
-      Ancien_etat: this.getEtat(this.rawData[k].Id_Etat_a),
-      Nouveau_etat: this.getEtat(this.rawData[k].Id_Etat_n),
-      Fichier: this.getFileName(this.rawData[k].Id_f),
-      Type_fichier: this.getTypeF(this.rawData[k].Id_f),
-      Fournisseur:this.getFour(this.rawData[k].Id_f)
+    this.utilisateur.getUserDet(this.u[k].id_utilisateur).subscribe(
+      {
+        next:(res)=>{
+          this.Updates[k].Nom=res.nom 
+          this.etatService.getEtatDet(this.u[k].id_etatA).subscribe(
+            {
+              next:(res)=>{
+                this.Updates[k].Ancien_etat=res.nom
+                this.etatService.getEtatDet(this.u[k].id_etatN).subscribe(
+                  {
+                    next:(res)=>{
+                      this.Updates[k].Nouveau_etat=res.nom
+                      if(this.u[k].id_fichier!=""){
+                        console.log("there is a file")
+                        this.fichierService.getFileDetByID(this.u[k].id_fichier).subscribe(
+                          {
+                            next:(res)=>{
+                              this.Updates[k].Fichier=res.nom 
+                              var id_f=res.id_f
+                              var id_type=res.id_type 
+                              this.typeFichierService.getFileType(id_type).subscribe(
+                                {
+                                  next:(res)=>{
+                                    this.Updates[k].Type_fichier=res.nom;
+                                    if(id_f!=""){
+                                      this.fournisseurService.getFourDet(id_f).subscribe(
+                                        {
+                                          next:(res)=>{
+                                            this.Updates[k].Fournisseur=res.nom;
+                                            if(k==this.u.length-1){
+                                              this.dataSource = new MatTableDataSource(this.Updates)
+                                              this.processing=false;
+                                              this.dataSource.paginator = this.paginator;
+                                              this.dataSource.sort = this.sort;
+                                            }
+                                          }, error:()=>{
+                                            alert("échec lors de chargement des mises à jour")
+                                            }
+                                        }
+                                      )
+                                    } else{
+                                      if(k==this.u.length-1){
+                                        this.dataSource = new MatTableDataSource(this.Updates)
+                                        this.processing=false;
+                                        this.dataSource.paginator = this.paginator;
+                                        this.dataSource.sort = this.sort;
+                                      }
+                                    }
+                                  }, error:()=>{
+                                    alert("échec lors de chargement des mises à jour")
+                            }
+                                }
+                              )
+                              
+                            }, error:()=>{
+                              alert("échec lors de chargement des mises à jour")
+                            }
+
+                          }
+                        )
+                      } else{
+                        if(k==this.u.length-1){
+                          this.dataSource = new MatTableDataSource(this.Updates)
+                          this.processing=false;
+                          this.dataSource.paginator = this.paginator;
+                          this.dataSource.sort = this.sort;
+                        }
+                      }
+                      
+                    }, error:()=>{
+                      alert("échec lors de chargement des mises à jour")
+                    }
+                  }
+                )
+
+              }, error:()=>{
+                alert("échec lors de chargement des mises à jour")
+              }
+            }
+          )
+        }, error:()=>{
+          alert("échec lors de chargement des mises à jour")
+        }
+        
+      }
+    )
+    
+    console.log("updates outside of services", this.Updates)
+     return{
+      Date: this.u[k].date ,
+      Nom: "",
+      Ancien_etat: "",
+      Nouveau_etat: "",
+      Fichier: "",
+      Type_fichier: "",
+      Fournisseur:""
     }
   }
 

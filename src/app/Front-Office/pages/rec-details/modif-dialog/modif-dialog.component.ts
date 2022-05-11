@@ -50,7 +50,7 @@ export class ModifDialogComponent implements OnInit {
             this.categorie.categorie().subscribe((data) => {
               this.cat = data;
               console.log(this.cat);
-              this.matr=this.utilisateur.getUserMatr(this.rec.id_reclamant);
+              this.matr=localStorage.getItem('matricule');
       
       this.form = this.fb.group({  
         matricule: this.matr,

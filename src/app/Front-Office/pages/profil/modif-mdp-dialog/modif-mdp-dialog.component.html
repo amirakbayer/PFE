@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Modifier mot de passe</h1>
+<div mat-dialog-content  >
+
+    <form [formGroup]="mdpFormGroup" (ngSubmit)="onSubmit(mdpFormGroup.value)">
+          
+        <mat-form-field appearance="fill">
+          <mat-label>Mot de passe actuel</mat-label>
+          
+
+          <input matInput type="password" formControlName="oldCtrl" >
+          
+        </mat-form-field>
+        <div *ngIf="wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          <div *ngIf="incorrect" class="alert alert-danger">Mot de passe incorrect</div>
+          
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label>Nouveau mot de passe</mat-label>
+            
+  
+            <input matInput type="password" formControlName="newCtrl" >
+            
+        </mat-form-field>
+        <div *ngIf="wrong" class="alert alert-danger">Ce champ est obligatoire</div>
+          
+        <br/>
+        
+        
+    
+        <button mat-raised-button type="submit" >Enregistrer</button>
+</form>
+
+</div>    

@@ -43,6 +43,8 @@ import { ModifFDialogComponent } from './Front-Office/pages/fournisseurs/modif-f
 import { DeleteFDialogComponent } from './Front-Office/pages/fournisseurs/delete-fdialog/delete-fdialog.component';
 import { AddFDialogComponent } from './Front-Office/pages/fournisseurs/add-fdialog/add-fdialog.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { ModifNumDialogComponent } from './Front-Office/pages/profil/modif-num-dialog/modif-num-dialog.component';
+import { ModifMdpDialogComponent } from './Front-Office/pages/profil/modif-mdp-dialog/modif-mdp-dialog.component';
 
 
 
@@ -74,6 +76,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     ModifFDialogComponent,
     DeleteFDialogComponent,
     AddFDialogComponent,
+    ModifNumDialogComponent,
+    ModifMdpDialogComponent,
  
     
     
