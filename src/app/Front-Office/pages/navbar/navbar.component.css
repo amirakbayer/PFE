@@ -11,7 +11,7 @@
     position:relative;
     width:100%;
     margin:0% auto;
-    background-color:black;
+    background-color:#0d1e32;
     box-shadow: -2px -2px 5px white,2px -2px 5px white;
   }
   #container > nav {
@@ -61,7 +61,7 @@
   }
   #container > nav > ul > li:hover {
     border-bottom: 2px solid white;
-    background-color: #0055a0;
+    background-color: #3c768d;
   }
   #container > nav > ul > .dropdown:hover {
     border-bottom:none;

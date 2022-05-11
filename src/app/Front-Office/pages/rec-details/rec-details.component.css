@@ -32,7 +32,8 @@
   align-items: center;
   flex-direction: column;
   justify-content: flex-end;
-  background-color: white;
+  background: linear-gradient(-45deg, #a8a8a8, #b2cbd4a4);
+  
 }
 .home-container1 {
   background-color: white;
