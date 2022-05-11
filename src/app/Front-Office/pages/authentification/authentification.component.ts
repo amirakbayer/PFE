@@ -56,7 +56,7 @@ export class AuthentificationComponent implements OnInit {
               console.log("lieu is ",this.lieu);
             localStorage.setItem('role',this.role);
             localStorage.setItem('id',this.user._id);
-            localStorage.setItem('matricule',this.user.matricule);
+            localStorage.setItem('matricule',this.user.matr);
             localStorage.setItem('id_lieu',this.user.id_lieu);
             localStorage.setItem('gouvernorat',this.lieu.gouv);
             localStorage.setItem('ville',this.lieu.ville);
@@ -65,7 +65,9 @@ export class AuthentificationComponent implements OnInit {
             setTimeout(()=>{
               localStorage.clear();
               console.log("your time is up ");
-            },3600000)
+              this.router.navigate(['/login']);
+              alert("session expirée")
+            },36000000)
             
             })
             })

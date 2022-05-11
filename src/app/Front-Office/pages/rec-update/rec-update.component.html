@@ -3,8 +3,8 @@
 
 
 
-<div class="home-container" *ngIf="!processing">
-  <div class="home-container1">
+<div class="home-container"*ngIf="!processing" >
+  <div class="home-container1" >
     <div class="home-container2">
 
 
@@ -76,7 +76,7 @@
       <button mat-raised-button *ngIf="rec.id_etat < 3" color="warn" (click)="invalidate()">Réclamation invalide</button>
     </div>
   </div>
-  <div class="home-container4">
+  <div class="home-container4" >
     <mat-stepper orientation="horizontal" [linear]="isLinear" [selectedIndex]="rec.id_etat - 1" *ngIf="rec.id_etat <8" #stepper2>
       <mat-step   >
         <ng-template matStepLabel>Affectation</ng-template>
@@ -122,7 +122,7 @@
             
             <mat-card-actions align="end">
               <button mat-raised-button (click)="openDialog(1)">Ajouter fichier</button>
-              <button mat-raised-button routerLink="/fournisseurs/{{rec.id}}">Consulter fournisseurs</button>
+              <button mat-raised-button routerLink="/fournisseurs/{{rec._id}}">Consulter fournisseurs</button>
               <button mat-raised-button matStepperNext color="primary" (click)="nextstate()">Etape suivante</button>
             </mat-card-actions>
             
@@ -139,7 +139,7 @@
             
             <mat-card-actions align="end">
               <button mat-raised-button (click)="openDialog(2)">Ajouter fichier</button>
-              <button mat-raised-button routerLink="/fournisseurs/{{rec.id}}">Consulter fournisseurs</button>
+              <button mat-raised-button routerLink="/fournisseurs/{{rec._id}}">Consulter fournisseurs</button>
               <button mat-raised-button matStepperNext color="primary" (click)="nextstate()">Etape suivante</button>
             </mat-card-actions>
             
@@ -156,7 +156,7 @@
             
             <mat-card-actions align="end">
               <button mat-raised-button (click)="openDialog(3)">Ajouter fichier</button>
-              <button mat-raised-button routerLink="/fournisseurs/{{rec.id}}">Consulter fournisseurs</button>
+              <button mat-raised-button routerLink="/fournisseurs/{{rec._id}}">Consulter fournisseurs</button>
               <button mat-raised-button matStepperNext color="primary" (click)="nextstate()">Etape suivante</button>
             </mat-card-actions>
             
@@ -174,7 +174,7 @@
             
             <mat-card-actions align="end">
               <button mat-raised-button (click)="openDialog(4)">Ajouter fichier</button>
-              <button mat-raised-button routerLink="/fournisseurs/{{rec.id}}">Consulter fournisseurs</button>
+              <button mat-raised-button routerLink="/fournisseurs/{{rec._id}}">Consulter fournisseurs</button>
               <button mat-raised-button matStepperNext color="primary" (click)="nextstate()">Etape suivante</button>
             </mat-card-actions>
             
@@ -219,7 +219,7 @@
       </mat-card>
   </div>
   <div class="home-container5"> 
-    <div class="home-container6">
+    <div class="home-container6" >
     <mat-form-field appearance="standard">
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
@@ -249,17 +249,17 @@
     
         <!-- Fruit Column -->
         <ng-container matColumnDef="Nouveau_etat">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nouveau Etat </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nouveau Etat</th>
           <td mat-cell *matCellDef="let row"> {{row.Nouveau_etat}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Fichier">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Fichier </th>
-          <td mat-cell *matCellDef="let row"> {{row.Fichier}} </td>
+          <td mat-cell *matCellDef="let row"> <a mat-button (click)="downloadFile(row.Fichier)"> {{row.Fichier}} </a> </td>
         </ng-container>
 
         <ng-container matColumnDef="Type_fichier">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type Fichier </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Type Fichier</th>
           <td mat-cell *matCellDef="let row"> {{row.Type_fichier}} </td>
         </ng-container>
 

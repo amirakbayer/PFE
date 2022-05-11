@@ -1,7 +1,10 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FournisseursService } from '../../fournisseurs/fournisseurs.service';
 import { DialogData } from '../rec-update.component';
+import { UpdatesService } from '../updates.service';
+import { FileService } from './file.service';
 
 @Component({
   selector: 'app-file-dialog',
@@ -11,15 +14,24 @@ import { DialogData } from '../rec-update.component';
 export class FileDialogComponent implements OnInit {
   secondFormGroup: FormGroup;
   fournisseurs;
-  constructor(@Inject(MAT_DIALOG_DATA) public fType: DialogData, private _formBuilder: FormBuilder,) {}
+  processing=true;
+  constructor(@Inject(MAT_DIALOG_DATA) public fType: DialogData,
+   private _formBuilder: FormBuilder,
+   private fileService: FileService,  
+   private fournisseurService: FournisseursService,
+   private updateService: UpdatesService) {}
 
 
   ngOnInit(): void {
-    this.fournisseurs=[{id:'1',name:'john Smith'},] ;//here u put the api to get list of fournisseurs
-   this.secondFormGroup = this._formBuilder.group({
-    secondCtrl: new FormControl(''),
-    
-  });
+    this.fournisseurService.getFour().subscribe((data)=>{
+      this.fournisseurs=data 
+      this.secondFormGroup = this._formBuilder.group({
+        secondCtrl: new FormControl(''),
+        
+      });
+      this.processing=false;
+    });//here u put the api to get list of fournisseurs
+   
   
   }
   get secondCtrl(){
@@ -55,23 +67,61 @@ removeSelectedFile(index) {
  this.fileList.splice(index, 1);
 }
 data;
+update
 submit(form){
   for(let i=0;i<this.fileList.length;i++){
-  this.data={
-    fichier: this.fileList[i],
-    id_f:form.secondCtrl ,
-    id_type:this.fType.Type
-  }
+    this.fileService.uploadFile(this.fileList[i]).subscribe({
+      next:(res)=>{
+        //post the file name and id_f to database
+        this.data={
+          nom: this.fileList[i].name,
+          id_f:form.secondCtrl ,
+          id_type:this.fType.Type,
+        }
+        this.fileService.saveFile(this.data).subscribe({
+          next:(res)=>{
+            
+            
+            this.fileService.getFileDet(this.fileList[i].name).subscribe((data)=>{
+              console.log("getFileDet data", data)
+              var idFile=data._id
+              this.update={
+                id_rec: this.fType.id_rec,
+                id_utilisateur: this.fType.id_user,
+                id_etatA: this.fType.id_etatA,
+                id_etatN: this.fType.id_etatN,
+                date: this.fType.date,
+                id_fichier: idFile
+              }
+              console.log("update data",this.update);
+              this.updateService.saveUpdate(this.update).subscribe((data)=>{
+                console.log("update is saved succesfully")
+                if(i==this.fileList.length-1){
+                  this.listOfFiles=[];
+                this.fileList=[];
+                this.secondFormGroup.reset();
+                }
+              })
+              
+            })
+
+          },
+          error:()=>{
+            alert("échec lors du sauvegarde du fichier")
+          }
+        })
+      },
+      error:()=>{
+        alert("échec lors de l'envoi du fichier");
+      }
+    })
+  
   
   ///here we use the api to post the files
   console.log('data is',this.data);
 } 
-console.log('secondCtrl', form.secondCtrl);
-console.log('working on select');
-console.log('listoffiles',this.listOfFiles);
-  this.listOfFiles=[];
-  this.fileList=[];
-  this.secondFormGroup.reset();
+
+  
 }
 
 
