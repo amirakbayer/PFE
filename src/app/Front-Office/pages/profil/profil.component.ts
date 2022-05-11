@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UtilisateurService } from '../../utilisateur/utilisateur.service';
-
+//*hg*/
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
