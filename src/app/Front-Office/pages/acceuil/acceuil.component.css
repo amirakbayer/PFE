@@ -4,13 +4,34 @@
   grid-template-rows: repeat(5, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  background-color: #ced9ff;
+  background: linear-gradient(-45deg, #505050, #a0e4ffa4);
   }
   
   .div1 { grid-area: 1 / 1 / 3 / 6; }
   .div2 { grid-area: 3 / 1 / 6 / 6; }
 
+  .seperator {
+    width: 20vw;
+    color: #fff;
+    align-self: center;
+  }
 
+  .footer-content a {
+    color: #e1b377;
+  }
+
+  #footer {
+    background-color: #0d1e32;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 25px 0 25px 0;
+  }  
 
 
 

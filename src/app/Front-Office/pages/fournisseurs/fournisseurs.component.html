@@ -1,15 +1,19 @@
 <navbar></navbar>
+
 <button mat-raised-button *ngIf="id!==undefined" routerLink="/reclamation-update/{{id}}" color="primary">Retour</button>
 <button mat-raised-button *ngIf="role== 'responsable' " (click)="addFDialog()" color="primary">Ajouter Fournisseur</button>
 
 <div class="home-container" *ngIf="!processing">
+  
 <div class="home-container5"> 
+
     <div class="home-container6">
     <mat-form-field appearance="standard">
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
     </mat-form-field>
     </div>
+
     <div class="home-container7">
     <div class="mat-elevation-z8" *ngIf="role== 'responsable' ">
       <table mat-table [dataSource]="dataSource" matSort>
@@ -68,6 +72,12 @@
     
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
     </div>
+
+
+
+
+
+
     <div class="mat-elevation-z8" *ngIf="role== 'assistant' ">
       <table mat-table [dataSource]="dataSource" matSort>
     
@@ -114,3 +124,4 @@
     </div>
     </div>
   </div>
+

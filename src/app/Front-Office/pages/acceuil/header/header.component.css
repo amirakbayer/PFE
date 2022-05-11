@@ -131,6 +131,27 @@
   
 }
 
+.container {
+  width: 90vw;
+  margin: auto;
+}
+
+.features-background {
+  background-color: rgba(180, 180, 180, 0.733);
+  padding: 50px 50px 50px 0;
+}
+
+.three-col-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  grid-gap: 25px;
+  justify-items: center;
+  align-items: center;
+}
+
+.feat-style {
+  text-align: center;
+}
 
 
 
