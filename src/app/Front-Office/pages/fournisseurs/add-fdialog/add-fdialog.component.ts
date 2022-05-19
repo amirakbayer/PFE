@@ -14,6 +14,7 @@ export class AddFDialogComponent implements OnInit {
   cat : any = [];
   form : FormGroup;
   wrong=false;
+  processing=true;
   constructor(@Inject(MAT_DIALOG_DATA) public dialogData: DialogData2,
   private dialogRef: MatDialogRef<AddFDialogComponent>,
   private fb: FormBuilder,
@@ -21,14 +22,18 @@ export class AddFDialogComponent implements OnInit {
   private fourService: FournisseursService) { }
    
   ngOnInit(): void {
-    this.cat=this.categorie.categorie();
-    this.form= this.fb.group({
-      nom: new FormControl('',Validators.required),
-      categ: new FormControl('',Validators.required),
-      adresse: new FormControl('',Validators.required),
-      num_tel: new FormControl('',Validators.required),
-      email: new FormControl('',Validators.required)
-    });
+    this.categorie.categorie().subscribe((data)=>{
+      this.cat=data
+      this.form= this.fb.group({
+        nom: new FormControl('',Validators.required),
+        categ: new FormControl('',Validators.required),
+        adresse: new FormControl('',Validators.required),
+        num_tel: new FormControl('',Validators.required),
+        email: new FormControl('',Validators.required)
+      });
+      this.processing=false;
+    })
+    
   }
   get Categ(){
     return this.form.get('categ')

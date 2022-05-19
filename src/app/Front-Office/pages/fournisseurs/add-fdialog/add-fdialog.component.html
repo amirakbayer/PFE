@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!processing">
                     
     <div class="content">
       <form [formGroup]="form" (ngSubmit)="submit(form.value)">
@@ -28,7 +28,7 @@
             <span class="details">Catégorie</span>
             <select formControlName="categ"  >
               <!-- <option  selected>{{categN(selectedCategory)}}</option> -->
-              <option *ngFor="let c of cat " value="{{c.id}}" > {{c.name}} </option>
+              <option *ngFor="let c of cat " value="{{c._id}}" > {{c.nom}} </option>
             </select> 
             <div *ngIf="(Categ?.touched && Categ?.invalid)|| wrong" class="alert alert-danger">Ce champ est obligatoire</div>
           </div>

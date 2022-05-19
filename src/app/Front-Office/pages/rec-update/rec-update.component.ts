@@ -233,6 +233,7 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
         }
         this.updateService.saveUpdate(this.updateToSend).subscribe((data)=>{
           console.log("update is saved successfully")
+          this.readUpdates(this.rec._id)
         })
       },
       error: (e) => {
@@ -262,6 +263,7 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
         }
         this.updateService.saveUpdate(this.updateToSend).subscribe((data)=>{
           console.log("update is saved successfully")
+          this.readUpdates(this.rec._id)
         })
       },
       error: (e) => {
@@ -288,6 +290,7 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
         }
         this.updateService.saveUpdate(this.updateToSend).subscribe((data)=>{
           console.log("update is saved successfully")
+          this.readUpdates(this.rec._id)
         })
         console.log('new stepper1 selected index ',this.stepper1);
     this.stepper2.selectedIndex = 1;
@@ -321,6 +324,7 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
         }
         this.updateService.saveUpdate(this.updateToSend).subscribe((data)=>{
           console.log("update is saved successfully")
+          this.readUpdates(this.rec._id)
         })
       },
       error: (e) => {
@@ -339,7 +343,7 @@ export class RecUpdateComponent implements OnInit, AfterViewInit {
         id_user: this.id_user,
         date: new Date() ,
       },
-    });
+    }).afterClosed().subscribe(()=> this.readUpdates(this.rec._id))
   }
 
   applyFilter(event: Event) {

@@ -15,6 +15,17 @@ import { DialogData1 } from '../rec-details.component';
   styleUrls: ['./modif-dialog.component.css']
 })
 export class ModifDialogComponent implements OnInit {
+
+  niveau: any=1;
+
+  form = new FormGroup({
+
+    categ : new FormControl('',Validators.required),
+    sousCateg : new FormControl('',Validators.required),
+    description : new FormControl('',Validators.max(15)),
+    urgence : new FormControl('2',Validators.required)
+  })
+
   rec;
   wrong=false;
   cat : any = [];
@@ -51,7 +62,42 @@ export class ModifDialogComponent implements OnInit {
               this.cat = data;
               console.log(this.cat);
               this.matr=localStorage.getItem('matricule');
+
+              console.log('rec0 : ',this.rec.urg);
+
+              //this.niveau = 1;
       
+    //   this.form = this.fb.group({  
+    //     matricule: this.matr,
+    //     gouvernorat: this.g,
+    //     ville: this.v,
+    //     agence: this.a,
+    //     categ: this.categ,
+    //     sousCateg: this.sousCateg,
+    //     description: this.description,
+    //     urgence:this.niveau
+    // });  
+    this.categ.setValue(this.defaultCateg);
+    this.sousCateg.setValue(this.rec.Id_sousCateg);
+    this.description.setValue(this.rec.desc);
+    
+    //this.urgence.setValue(this.rec.urg);
+    console.log(this.sousCateg);
+    this.categorie.souscategorie(this.categ.value).subscribe((data) => {
+      this.souscat = data;
+      console.log(this.souscat);
+      this.processing=false;
+      console.log('rec',this.rec.urg);
+      console.log('control',this.urgence.value);
+
+      // this.form = new FormGroup({
+
+      //   categ : new FormControl('',Validators.required),
+      //   sousCateg : new FormControl('',Validators.required),
+      //   description : new FormControl('',Validators.max(15)),
+      //   urgence : new FormControl('',Validators.required)
+      // })
+
       this.form = this.fb.group({  
         matricule: this.matr,
         gouvernorat: this.g,
@@ -60,19 +106,8 @@ export class ModifDialogComponent implements OnInit {
         categ: this.categ,
         sousCateg: this.sousCateg,
         description: this.description,
-        urgence:this.urgence
+        urgence:this.rec.urg.toString()
     });  
-    this.categ.setValue(this.defaultCateg);
-    this.sousCateg.setValue(this.rec.Id_sousCateg);
-    this.description.setValue(this.rec.desc);
-    this.urgence.setValue(this.rec.urg);
-    console.log(this.sousCateg);
-    this.categorie.souscategorie(this.categ.value).subscribe((data) => {
-      this.souscat = data;
-      console.log(this.souscat);
-      this.processing=false;
-      console.log('rec',this.rec.urg);
-      console.log('control',this.urgence.value);
      })  ;
         
              })
@@ -85,13 +120,7 @@ export class ModifDialogComponent implements OnInit {
     
   }
 
-  form = new FormGroup({
-
-    categ : new FormControl('',Validators.required),
-    sousCateg : new FormControl('',Validators.required),
-    description : new FormControl('',Validators.max(15)),
-    urgence : new FormControl('',Validators.required)
-  })
+ 
   get description(){
     return this.form.get('description');
   }

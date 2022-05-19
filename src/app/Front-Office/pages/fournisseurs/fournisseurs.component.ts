@@ -103,21 +103,21 @@ F;
 addFDialog(){
   this.dialog.open(AddFDialogComponent,{
     
-  })
+  }).afterClosed().subscribe(()=> this.readFours())
 }
 modifFDialog(id){
   this.dialog.open(ModifFDialogComponent,{
     data: {
       _id:id,
     }
-  })
+  }).afterClosed().subscribe(()=> this.readFours())
 }
 deleteFDialog(id){
   this.dialog.open(DeleteFDialogComponent,{
     data: {
       _id:id,
     }
-  })
+  }).afterClosed().subscribe(()=> this.readFours())
 }
 applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;

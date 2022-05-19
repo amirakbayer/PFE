@@ -75,7 +75,7 @@ export class FullComponent implements OnInit {
   urgenceN(idU){
     if(idU==3){
       return "Trés urgente"
-    }else if(idU==3){
+    }else if(idU==2){
       return "Assez urgente"
     }else{
       return "Peu urgente"

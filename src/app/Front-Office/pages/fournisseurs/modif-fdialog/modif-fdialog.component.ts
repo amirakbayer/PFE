@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CategorieService } from '../../new-rec/categorie.service';
 import { AddFDialogComponent } from '../add-fdialog/add-fdialog.component';
-import { DialogData2 } from '../fournisseurs.component';
+import { DialogData2, FournisseursComponent } from '../fournisseurs.component';
 import { FournisseursService } from '../fournisseurs.service';
 
 @Component({
@@ -74,6 +74,7 @@ export class ModifFDialogComponent implements OnInit {
         complete: () => {
           this.dialogRef.close();
           console.log('Content updated successfully!');
+          
         },
         error: (e) => {
           console.log(e);
