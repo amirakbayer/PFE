@@ -8,6 +8,7 @@
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: stretch;
+
   background-image: linear-gradient(to right bottom, 
   rgba(22, 22, 22, 0.5),
   rgba(0, 0, 0, 0.541)),
@@ -51,7 +52,7 @@
   border-left: none;
 }
 .toggle input:hover + label {
-  border-color: #213140;
+  border-color: #0b365f;
 }
 .toggle input:checked + label {
   background-color: #00317A;
@@ -111,6 +112,8 @@ body {
   padding-top: 25px ;
   padding-left: 0px;
   padding-right: 0px;
+  
+  
 }
 
 h2 {
@@ -131,6 +134,7 @@ h2 small {
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
+    
 }
 .responsive-table .table-header {
     background-color: #2d2d31;
@@ -141,7 +145,7 @@ h2 small {
     letter-spacing: 0.03em;
   }
   .responsive-table  .table-row {
-    background-color: #ffffff;
+    background-color: #e6e6e6;
     box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
 
   }
@@ -151,13 +155,15 @@ h2 small {
     
   }
   .responsive-table  .col-1 {
-    flex-basis: 10%;
+    flex-basis: 8%;
+    padding-right: 25%;
+    align-content: space-around;
   }
   .responsive-table .col-2 {
-    flex-basis: 40%;
+    flex-basis: 30%;
   }
   .responsive-table .col-3 {
-    flex-basis: 25%;
+    flex-basis: 20%;
   }
   .responsive-table .col-4 {
     flex-basis: 25%;
@@ -187,6 +193,10 @@ h2 small {
         text-align: right;
       }**/
     }
+
+    
   
-  /*}
-}*/
+
+
+
+

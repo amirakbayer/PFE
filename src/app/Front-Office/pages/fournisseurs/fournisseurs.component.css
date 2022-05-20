@@ -1,5 +1,5 @@
 .all {
-  background-color: white;
+  background: linear-gradient(-45deg, 	#293030, #6d7f7f, #d5dbdb);
   overflow: auto;
   width: 100%;
   height: 100vh;
@@ -7,11 +7,12 @@
   
 }
 
-
+/**
 :host { 
   display: contents; 
   background-color: white;
 }
+*/
 
 
 .home-container {
@@ -23,12 +24,14 @@
   align-items: center;
   flex-direction: column;
   justify-content: flex-end;
-  background-color: white;
+  background: linear-gradient(-45deg, 	#293030, #6d7f7f, #d5dbdb);
+  
 }
 
 
 .home-container5 {
-    background-color: white;
+  border-radius: 25px;
+  background: linear-gradient(-45deg, 	#293030, #6d7f7f, #d5dbdb);
     top: 180px;
     width: 80%;
     height: 500px;
@@ -39,18 +42,22 @@
     align-items: center;
     flex-direction: column;
     justify-content: flex-start;
+    
   }
-  .home-container6 {
-    background-color: white;
+  .home-container6 { /*filter*/
+    border-radius: 25px;
+    background-color: rgb(247, 247, 247);
     flex:auto;
     width: 100%;
     border: 2px solid rgba(120, 120, 120, 0.4);
     height: 15%;
     display: flex;
-    align-items:center;
+    
+    
   }
   .home-container7 {
-    background-color: white;
+    border-radius: 25px;
+    background: linear-gradient(-45deg, 	#293030, #6d7f7f, #d5dbdb);
     flex: auto;
     width: 100%;
     border: 2px solid rgba(120, 120, 120, 0.4);
@@ -60,10 +67,11 @@
   }  
   
 .mat-elevation-z8{
+  border-radius: 25px;
   display: flex;
   width:100%;
   flex-direction: column;
-  margin-top: 0;
+  margin-top: 5;
   
 }
   table {
@@ -74,8 +82,51 @@
     font-size: 14px;
     width: 10%;
     
+    
   }
   
   td, th {
     width: 25%;
+    
+  }
+  .seperator {
+    width: 20vw;
+    color: #fff;
+    align-self: center;
+  }
+
+  .footer-content a {
+    color: #e1b377;
+  }
+
+  #footer {
+    background-color: #0d1e32;
+    text-align: center;
+    color: #fff;
+    width: 1903px;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 25px 0 25px 0;
+  }  
+
+  .mat-header-cell{
+    font-size: large;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    
+  }
+  .mat-cell{
+    font-size: small;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .f{
+    background: linear-gradient(-45deg, 	#293030, #6d7f7f, #d5dbdb);
+    height: 1px;
+    padding-top: 8px;
+    padding-left: 5%;
   }

@@ -1,9 +1,21 @@
 <navbar></navbar>
 
 
-
+<div class="f"> 
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="main-breadcrumb">
+   <ol class="breadcrumb">
+     <li class="breadcrumb-item"><a href="acceuil">Accueil</a></li>
+ 
+     <li class="breadcrumb-item active" aria-current="page"> Détails de la réclamation</li>
+   </ol>
+ </nav>
+ <!-- /Breadcrumb -->
+ </div>
 <div class="home-container" *ngIf="!processing">
+  
   <div class="home-container1">
+    
     <div class="home-container2">
 
 
@@ -51,7 +63,10 @@
         
       </mat-stepper>
     </div>
+    <br>
+    <br>
       <button mat-raised-button *ngIf="rec.id_etat ==1" color="primary" (click)="onModif()" >Modifier</button>
+      <br>
       <button mat-raised-button *ngIf="rec.id_etat ==1" color="warn" (click)="onDelete()" >Supprimer</button>
     </div>
   </div>

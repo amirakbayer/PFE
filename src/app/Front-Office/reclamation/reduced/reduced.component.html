@@ -1,6 +1,9 @@
 <mat-tab-group mat-align-tabs="center">
+  
   <mat-tab label="Mes réclamations">
     <div  class="container" *ngIf="!processing">
+
+
       <ul class="responsive-table">
         <li class="table-header">
           <div class="col col-1">Id</div>
@@ -15,6 +18,7 @@
           <div class="col col-4" >{{rec.etat}}</div>
         </li>
       </ul>
+      
     </div>
   </mat-tab>
   <mat-tab *ngIf=" role=='assistant' " label="Réclamations en charge">

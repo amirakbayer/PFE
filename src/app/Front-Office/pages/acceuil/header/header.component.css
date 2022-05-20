@@ -134,10 +134,14 @@
 .container {
   width: 90vw;
   margin: auto;
+  
+  
+ 
 }
 
+
 .features-background {
-  background-color: rgba(180, 180, 180, 0.733);
+  background: linear-gradient(-45deg, 	#608888, #6d7f7f, #678585);
   padding: 50px 50px 50px 0;
 }
 
@@ -147,6 +151,8 @@
   grid-gap: 25px;
   justify-items: center;
   align-items: center;
+  
+  
 }
 
 .feat-style {
