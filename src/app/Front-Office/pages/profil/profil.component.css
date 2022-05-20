@@ -1,4 +1,8 @@
-
+.container8{
+  background: linear-gradient(-45deg, 	#293030, #6d7f7f, #d5dbdb);
+  width: 100%;
+  height: 100%;
+}
 
 body{
   margin-top:20px;
@@ -55,4 +59,11 @@ body{
 }
 .shadow-none {
   box-shadow: none!important;
+}
+.btn {
+background-color: #b5d4d4;
+}
+.mb-0{
+  font-size: medium ;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

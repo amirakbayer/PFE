@@ -1,11 +1,24 @@
 <navbar></navbar>
 
-<button mat-raised-button *ngIf="id!==undefined" routerLink="/reclamation-update/{{id}}" color="primary">Retour</button>
-<button mat-raised-button *ngIf="role== 'responsable' " (click)="addFDialog()" color="primary">Ajouter Fournisseur</button>
 
+<div class="f"> 
+ <!-- Breadcrumb -->
+ <nav aria-label="breadcrumb" class="main-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="acceuil">Accueil</a></li>
+
+    <li class="breadcrumb-item active" aria-current="page"> Ajouter Fournisseur </li>
+  </ol>
+</nav>
+<!-- /Breadcrumb -->
+</div>
 <div class="home-container" *ngIf="!processing">
+
+
   
 <div class="home-container5"> 
+  <button mat-raised-button *ngIf="id!==undefined" routerLink="/reclamation-update/{{id}}" color="primary">Retour</button>
+  <button mat-raised-button *ngIf="role== 'responsable' " (click)="addFDialog()" color="primary">Ajouter Fournisseur</button>
 
     <div class="home-container6">
     <mat-form-field appearance="standard">
@@ -19,7 +32,7 @@
       <table mat-table [dataSource]="dataSource" matSort>
     
         <!-- ID Column -->
-        <ng-container matColumnDef="nom">
+        <ng-container matColumnDef="nom" >
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom Fournisseur </th>
           <td mat-cell *matCellDef="let row"> {{row.nom}} </td>
         </ng-container>
@@ -32,7 +45,7 @@
     
         <!-- Name Column -->
         <ng-container matColumnDef="adresse">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Adresse </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header > Adresse </th>
           <td mat-cell *matCellDef="let row"> {{row.adresse}} </td>
         </ng-container>
     
@@ -66,11 +79,12 @@
     
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          <td class="mat-cell" colspan="4">Aucun résultat trouvé pour "{{input.value}}"</td>
         </tr>
       </table>
     
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      
     </div>
 
 
@@ -116,12 +130,12 @@
     
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          <td class="mat-cell" colspan="4"> Aucun résultat trouvé "{{input.value}}"</td>
         </tr>
       </table>
     
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
     </div>
     </div>
+    
   </div>
-
