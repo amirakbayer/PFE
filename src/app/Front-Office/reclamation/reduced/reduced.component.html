@@ -2,27 +2,57 @@
   
   <mat-tab label="Mes réclamations">
     <div  class="container" *ngIf="!processing">
-
-
-      <ul class="responsive-table">
+      <br/>
+      <h3>Cliquez sur une réclamation pour voir ses détails</h3>
+      <br/>
+      <h4>Pour filtrer les réclamations selon leurs états, veuillez cliquer sur le(s) choix convenables</h4>
+      
+      <div class="toggler">
+<mat-button-toggle-group #group="matButtonToggleGroup" (change)="applyfilterforown(group.value)" name="Etats" aria-label="Etats" multiple>
+  <mat-button-toggle value="en attente" >En attente</mat-button-toggle>
+  <mat-button-toggle value="en cours de traitement" >En cours de traitement</mat-button-toggle>
+  <mat-button-toggle value="traitée">Traitées</mat-button-toggle>
+  <mat-button-toggle value="invalide">Invalides</mat-button-toggle>
+</mat-button-toggle-group>
+</div>
+<br/>
+<br/>
+      <ul class="responsive-table" >
         <li class="table-header">
           <div class="col col-1">Id</div>
           <div class="col col-2">Date</div>
           <div class="col col-3">Categorie</div>
           <div class="col col-4">Etat actuel</div>
         </li>
-        <li class="table-row table-hover" *ngFor="let rec of ownRecs" routerLink="/reclamation-details/{{rec._id}}">
-          <div class="col col-1" >{{rec._id}}</div>
+        <li class="table-row table-hover" *ngFor=" let i=index ; let rec of filteredOwnRecs |
+        paginate: {itemsPerPage: 5, currentPage: ownPage, totalItems: ownLength, id: 'pagination1' }" 
+        routerLink="/reclamation-details/{{rec._id}}">
+          <div class="col col-1" >{{i+1}}</div>
           <div class="col col-2" >{{rec.date | date: 'dd/MM/yyyy'}}</div>
           <div class="col col-3" >{{rec.categorie}}</div>
           <div class="col col-4" >{{rec.etat}}</div>
         </li>
       </ul>
-      
+      <pagination-controls id="pagination1" class="text-center my-pagination" (pageChange)="ownPage = $event"></pagination-controls>
     </div>
   </mat-tab>
   <mat-tab *ngIf=" role=='assistant' " label="Réclamations en charge">
     <div  class="container" *ngIf="!processing2">
+      <br/>
+      <h3>Cliquez sur une réclamation pour voir ses détails</h3>
+      <br/>
+      <h4>Pour filtrer les réclamations selon leurs états, veuillez cliquer sur le(s) choix convenables</h4>
+      
+      <div class="toggler">
+<mat-button-toggle-group #group="matButtonToggleGroup" (change)="applyfilterforAff(group.value)" name="Etats" aria-label="Etats" multiple>
+  
+  <mat-button-toggle value="en cours de traitement" >En cours de traitement</mat-button-toggle>
+  <mat-button-toggle value="traitée">Traitées</mat-button-toggle>
+  <mat-button-toggle value="invalide">Invalides</mat-button-toggle>
+</mat-button-toggle-group>
+</div>
+<br/>
+<br/>
       <ul class="responsive-table">
         <li class="table-header">
           <div class="col col-1">ID</div>
@@ -30,17 +60,35 @@
           <div class="col col-3">Categorie</div>
           <div class="col col-4">Etat actuel</div>
         </li>
-        <li class="table-row table-hover" *ngFor="let rec of affRecs" routerLink="/reclamation-update/{{rec._id}}">
-          <div class="col col-1" >{{rec._id}}</div>
+        <li class="table-row table-hover" *ngFor="let i=index ; let rec of filteredAffRecs|
+        paginate: {itemsPerPage: 5, currentPage: affPage, totalItems: affLength, id: 'pagination2' }" 
+         routerLink="/reclamation-update/{{rec._id}}">
+          <div class="col col-1" >{{i+1}}</div>
           <div class="col col-2" >{{rec.date | date: 'dd/MM/yyyy'}}</div>
           <div class="col col-3" >{{rec.categorie}}</div>
           <div class="col col-4" >{{rec.etat}}</div>
         </li>
       </ul>
+      <pagination-controls id="pagination2" class="text-center my-pagination" (pageChange)="affPage = $event"></pagination-controls>
     </div>
   </mat-tab>
   <mat-tab *ngIf=" role=='responsable' " label="Réclamations en charge">
     <div  class="container" *ngIf="!processing1">
+      <br/>
+      <h3>Cliquez sur une réclamation pour voir ses détails</h3>
+      <br/>
+      <h4>Pour filtrer les réclamations selon leurs états, veuillez cliquer sur le(s) choix convenables</h4>
+      
+      <div class="toggler">
+<mat-button-toggle-group #group="matButtonToggleGroup" (change)="applyfilterforAll(group.value)" name="Etats" aria-label="Etats" multiple>
+  <mat-button-toggle value="en attente" >En attente</mat-button-toggle>
+  <mat-button-toggle value="en cours de traitement" >En cours de traitement</mat-button-toggle>
+  <mat-button-toggle value="traitée">Traitées</mat-button-toggle>
+  <mat-button-toggle value="invalide">Invalides</mat-button-toggle>
+</mat-button-toggle-group>
+</div>
+<br/>
+<br/>
     <ul class="responsive-table">
       <li class="table-header">
         <div class="col col-1">ID</div>
@@ -48,13 +96,16 @@
         <div class="col col-3">Categorie</div>
         <div class="col col-4">Etat actuel</div>
       </li>
-      <li class="table-row table-hover" *ngFor="let rec of allRecs"routerLink="/reclamation-update/{{rec._id}}">
-        <div class="col col-1" >{{rec._id}}</div>
-        <div class="col col-2" >{{rec.date | date: 'dd/MM/yyyy'}}}</div>
+      <li class="table-row table-hover" *ngFor="let i=index ; let rec of filteredAllRecs|
+      paginate: {itemsPerPage: 5, currentPage: allPage, totalItems: allLength, id: 'pagination3' }" 
+      routerLink="/reclamation-update/{{rec._id}}">
+        <div class="col col-1" >{{i+1}}</div>
+        <div class="col col-2" >{{rec.date | date: 'dd/MM/yyyy'}}</div>
         <div class="col col-3" >{{rec.categorie}}</div>
         <div class="col col-4" >{{rec.etat}}</div>
       </li>
     </ul>
+    <pagination-controls id="pagination3" class="text-center my-pagination" (pageChange)="allPage = $event"></pagination-controls>
   </div></mat-tab>
 </mat-tab-group>
 

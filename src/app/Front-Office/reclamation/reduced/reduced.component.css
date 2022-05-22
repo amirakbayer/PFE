@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+
+.my-pagination /deep/ .ngx-pagination .current {
+  background: rgb(0, 75, 122);
+}
+
 /* TOGGLE STYLING */
 .toggle {
   margin: 0 0 1.5rem;
@@ -98,8 +103,36 @@
     display: inline;
   }
 }
+/*********************************************************************************************************************/
 
-/******newtable********/
+::ng-deep .mat-tab-label .mat-tab-label-content {
+  font-size: large;
+}
+
+h3 {
+  font-size: 26px;
+  text-align: center;
+}
+
+h4 {
+  font-size: 20px;
+  text-align:center;
+}
+.toggler {
+  display: flex;
+justify-content: center;
+  
+  
+  width: 100%;
+}
+.mat-button-toggle-group .mat-button-toggle {
+  background-color: #ededed;
+}
+.mat-button-toggle-group .mat-button-toggle-checked {
+  background-color: #cacaca;
+}
+
+/******newtable***************************************************************/
 body {
   
   font-family: 'lato', sans-serif;
@@ -147,7 +180,7 @@ h2 small {
   .responsive-table  .table-row {
     background-color: #e6e6e6;
     box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
-
+    width: 1200px;
   }
   .responsive-table  .table-row:hover {
     background-color: #42819E;
@@ -155,15 +188,15 @@ h2 small {
     
   }
   .responsive-table  .col-1 {
-    flex-basis: 8%;
-    padding-right: 25%;
+    flex-basis: 25%;
+    padding-left: 10%;
     align-content: space-around;
   }
   .responsive-table .col-2 {
-    flex-basis: 30%;
+    flex-basis: 25%;
   }
   .responsive-table .col-3 {
-    flex-basis: 20%;
+    flex-basis: 25%;
   }
   .responsive-table .col-4 {
     flex-basis: 25%;

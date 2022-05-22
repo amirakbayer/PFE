@@ -1,22 +1,25 @@
 <navbar></navbar>
 
-
-<div class="f"> 
-  <!-- Breadcrumb -->
-  <nav aria-label="breadcrumb" class="main-breadcrumb">
+<!--<div class="f"> 
+  
+  
+<nav aria-label="breadcrumb" class="main-breadcrumb">
    <ol class="breadcrumb">
      <li class="breadcrumb-item"><a href="acceuil">Accueil</a></li>
  
      <li class="breadcrumb-item active" aria-current="page"> Détails de la réclamation</li>
    </ol>
  </nav>
- <!-- /Breadcrumb -->
- </div>
-<div class="home-container" *ngIf="!processing">
   
-  <div class="home-container1">
+  
+ 
+ </div>-->
+
+<div class="home-containerf" *ngIf="!processing">
+  
+  <div class="home-containerf1">
     
-    <div class="home-container2">
+    <div class="home-containerf2">
 
 
       <mat-card class="example-card">
@@ -24,13 +27,16 @@
         <mat-card-content>
           
           <br/>
-          <p><b>ID Réclamation :    </b>{{rec._id}} </p>
-          <p><b>Date de création :    </b>{{rec.date}} </p>
+          <div class="id-date">
+            <div class="id">
+          <p ><b>ID Réclamation :    </b>{{rec._id}} </p>
+        </div>
+        <div class="date">
+          <p ><b>Date de création :    </b>{{rec.date | date: 'dd/MM/yyyy'}} </p>
+        </div>
+      </div>
           <full [id]="rec._id"></full>
-          
-          <p ><b>Assistant en charge :    </b>
-            <span *ngIf="isAffected">{{assistant.nom}} {{assistant.prenom}}</span>
-            <span *ngIf="!isAffected">la réclamation n'est pas encore affectée</span> </p>
+        
           
           
           
@@ -41,9 +47,9 @@
 
 
     </div>
-    <div class="home-container3">
+    <div class="home-containerf3">
       <div *ngIf="!processing">
-      <mat-stepper orientation="vertical" [linear]="false" [selectedIndex]="currentState" *ngIf="rec.id_etat <8" #stepper1>
+      <mat-stepper orientation="vertical" [linear]="false" [selectedIndex]="currentState" *ngIf="rec.id_etat <'8'" #stepper1>
         <mat-step   >
           <ng-template matStepLabel>En attente</ng-template>
           
@@ -62,12 +68,32 @@
         </mat-step>
         
       </mat-stepper>
+      
+    </div>
+    <div *ngIf="rec.id_etat=='8' && !processing" class="invalide">
+        
+      <p>Votre réclamation est invalide</p>
+    </div>
+    <br>
+    <div class="contact">
+      <div class="contact-title">
+    <p><b>Assistant en charge </b></p>
+    </div>
+      <br>
+      <span *ngIf="isAffected">{{assistant.nom}} {{assistant.prenom}}</span>
+      <span *ngIf="!isAffected">la réclamation n'est pas encore affectée</span> 
+      <br>
+      <div class="contact-title" *ngIf="isAffected">
+        <p><b>Adresse e-mail de l'assistant</b></p>
+        </div>
+        <br>
+        <span *ngIf="isAffected"> <a href="mailto:{{assistant.email}}">{{assistant.email}}</a></span>
     </div>
     <br>
     <br>
-      <button mat-raised-button *ngIf="rec.id_etat ==1" color="primary" (click)="onModif()" >Modifier</button>
+      <button mat-raised-button *ngIf="rec.id_etat ==1" color="primary" (click)="onModif()" >Modifier réclamation</button>
       <br>
-      <button mat-raised-button *ngIf="rec.id_etat ==1" color="warn" (click)="onDelete()" >Supprimer</button>
+      <button mat-raised-button *ngIf="rec.id_etat ==1" color="warn" (click)="onDelete()" >Supprimer réclamation</button>
     </div>
   </div>
   </div>

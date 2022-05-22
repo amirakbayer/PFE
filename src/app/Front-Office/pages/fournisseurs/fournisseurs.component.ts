@@ -64,7 +64,7 @@ export class FournisseursComponent implements OnInit, AfterViewInit {
       
     }
   ngAfterViewInit(): void {
-    
+    //console.log("paginator after view",this.dataSource.paginator)
   }
 
   ngOnInit(): void {
@@ -95,7 +95,7 @@ F;
     this.fourService.getFour().subscribe((data) => {
      this.F = data;
      this.fournisseurs=Array.from({length:this.F.length}, (_, k) => this.transformData(k));
-     ;
+     //console.log("paginator read fours",this.dataSource.paginator)
      
     })  
   }
@@ -117,7 +117,8 @@ deleteFDialog(id){
     data: {
       _id:id,
     }
-  }).afterClosed().subscribe(()=> this.readFours())
+  }).afterClosed().subscribe(()=> {this.readFours()
+    console.log("paginator delete dialog",this.dataSource.paginator)})
 }
 applyFilter(event: Event) {
   const filterValue = (event.target as HTMLInputElement).value;
@@ -145,6 +146,7 @@ transformData(k: number):FournisseurData{
         this.dataSource = new MatTableDataSource(this.fournisseurs)
         this.processing=false;
         console.log("fournisseurs at last", this.fournisseurs)
+        console.log("paginator transform data",this.dataSource.paginator)
       }
     
     

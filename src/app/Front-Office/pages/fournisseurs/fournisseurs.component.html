@@ -1,35 +1,33 @@
 <navbar></navbar>
 
 
-<div class="f"> 
- <!-- Breadcrumb -->
- <nav aria-label="breadcrumb" class="main-breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="acceuil">Accueil</a></li>
-
-    <li class="breadcrumb-item active" aria-current="page"> Ajouter Fournisseur </li>
-  </ol>
-</nav>
-<!-- /Breadcrumb -->
-</div>
-<div class="home-container" *ngIf="!processing">
-
 
   
-<div class="home-container5"> 
-  <button mat-raised-button *ngIf="id!==undefined" routerLink="/reclamation-update/{{id}}" color="primary">Retour</button>
-  <button mat-raised-button *ngIf="role== 'responsable' " (click)="addFDialog()" color="primary">Ajouter Fournisseur</button>
 
-    <div class="home-container6">
-    <mat-form-field appearance="standard">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+
+<div class="home-containers" *ngIf="!processing">
+  <div class="return-div" *ngIf="id!==undefined">
+    <button mat-raised-button mat-fab color="primary" class="return" routerLink="/reclamation-update/{{id}}" >
+      <mat-icon>navigate_before</mat-icon>
+    </button>
+  </div>
+
+<div class="home-containers5"> 
+  
+  
+
+    <div class="home-containers6">
+    <mat-form-field class="mat-form-field1" appearance="standard">
+      <mat-label>Rechercher</mat-label>
+      <input matInput (keyup)="applyFilter($event)"  #input>
     </mat-form-field>
+    <div class="seperator1"></div>
+    <button mat-raised-button class="addButton" *ngIf="role== 'responsable' " (click)="addFDialog()" >Ajouter Fournisseur</button>
     </div>
 
-    <div class="home-container7">
-    <div class="mat-elevation-z8" *ngIf="role== 'responsable' ">
-      <table mat-table [dataSource]="dataSource" matSort>
+    <div class="home-containers7">
+    <div class="mat-elevations-z8 mat-z88" *ngIf="role== 'responsable' ">
+      <table class="table1" mat-table [dataSource]="dataSource" matSort>
     
         <!-- ID Column -->
         <ng-container matColumnDef="nom" >
@@ -93,7 +91,7 @@
 
 
     <div class="mat-elevation-z8" *ngIf="role== 'assistant' ">
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table class="table2" mat-table [dataSource]="dataSource" matSort>
     
         <!-- ID Column -->
         <ng-container matColumnDef="nom">
@@ -137,5 +135,7 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
     </div>
     </div>
+
+
     
   </div>

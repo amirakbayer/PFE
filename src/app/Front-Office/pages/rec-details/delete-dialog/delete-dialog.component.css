@@ -1,0 +1,15 @@
+p {
+    font-size: 16px;
+}
+.cancel1{
+    width:100px;
+    height:45px;
+    margin-left: 10px;
+    float: right;
+}
+.confirm1{
+    width:100px;
+    height:45px;
+    margin-left: 25px;
+    float: right;
+}

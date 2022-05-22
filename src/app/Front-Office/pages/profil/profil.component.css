@@ -26,7 +26,7 @@ body{
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background: linear-gradient(-45deg, #ccd6ccc5, #fce3e3);
+  background: linear-gradient(-45deg, #cdcdcd, #dee9fb);
   background-clip: border-box;
   border: 50 solid rgba(0,0,0,.125);
   border-radius: .25rem;
@@ -60,10 +60,15 @@ body{
 .shadow-none {
   box-shadow: none!important;
 }
-.btn {
-background-color: #b5d4d4;
+.mat-raised-button {
+  align-items:center;
+  align-self:center;
+  width:fit-content;
+  height: 45px;
+  float: right;
+  background-color: #014e92;
+  color: #fff;
 }
 .mb-0{
   font-size: medium ;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

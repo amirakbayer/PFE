@@ -9,13 +9,13 @@
     
     <form>
         <h3>Connectez-vous ici</h3>
-        <p *ngIf="wrong">matricule ou mot de passe incorrect</p>
+        <p *ngIf="wrong" align="center">matricule ou mot de passe incorrect</p>
         <label for="username" >Matricule</label>
         <input type="text" placeholder="Matricule" id="username"  name="matricule" [(ngModel)]="matricule" >
-        <div *ngIf="empty1" class="alert alert-danger">Ce champ est obligatoire</div>
+        <div *ngIf="empty1" class="alert ">Ce champ est obligatoire</div>
         <label for="password">Mot de passe</label>
         <input type="password" placeholder="mot de passe" id="password" name="mdp" [(ngModel)]="mdp" (keyup.enter)="OnClick()">
-        <div *ngIf="empty2" class="alert alert-danger">Ce champ est obligatoire</div>
+        <div *ngIf="empty2" class="alert ">Ce champ est obligatoire</div>
         <button (click)="OnClick()">Se connecter</button>
         <!--<div class="social">
           <div class="go"><i class="fab fa-google"></i>  Google</div>

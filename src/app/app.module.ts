@@ -45,8 +45,8 @@ import { AddFDialogComponent } from './Front-Office/pages/fournisseurs/add-fdial
 import {MatTabsModule} from '@angular/material/tabs';
 import { ModifNumDialogComponent } from './Front-Office/pages/profil/modif-num-dialog/modif-num-dialog.component';
 import { ModifMdpDialogComponent } from './Front-Office/pages/profil/modif-mdp-dialog/modif-mdp-dialog.component';
-
-
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -101,7 +101,9 @@ import { ModifMdpDialogComponent } from './Front-Office/pages/profil/modif-mdp-d
     MatSortModule,
     MatPaginatorModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatButtonToggleModule,
+    NgxPaginationModule
   ],
   providers: [
     RecServiceService,

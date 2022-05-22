@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RecServiceService } from '../rec-service.service';
 import { reclam } from '../reclam';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CategorieService } from 'src/app/Front-Office/pages/new-rec/categorie.service';
 import { EtatService } from '../etat.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 export interface TableData {
   _id: number;
@@ -25,7 +26,16 @@ export class ReducedComponent implements OnInit {
   affRecs;
   allRecs;
   a=0;
+ 
+  ownLength;
+  ownPage: number =1;
   
+  affLength;
+  affPage: number =1;
+
+  allLength;
+  allPage: number =1;
+
   constructor(private recService:RecServiceService, 
     private categorie:CategorieService , 
     private route: ActivatedRoute,
@@ -56,12 +66,13 @@ T1;
     .subscribe((data) => {
       this.T=data;
       this.ownRecs=Array.from({length:this.T.length}, (_, k) => this.transformData(k));
+      
       console.log("ownRecs is",this.ownRecs);
       
-      //this.allRecs = Array.of(this.allRecs);
+    
      
   }) 
-    //this.ownRecs=this.recService.getReclamsOfUser(this.id)
+    
        
   }
   T2;
@@ -71,7 +82,7 @@ T1;
       this.T2 = data; 
       this.affRecs=Array.from({length:this.T2.length}, (_, k) => this.transformData2(k));
       console.log("affRecs is",this.affRecs);
-      //this.allRecs = Array.of(this.allRecs);
+      
      })  
   }
   
@@ -97,6 +108,8 @@ T1;
         console.log("etat is",et)
         if(k==this.ownRecs.length-1){
           this.processing=false;
+          this.filteredOwnRecs=this.ownRecs
+          this.ownLength=this.ownRecs.length;
           console.log("ownrecs at last", this.ownRecs)
         }
       })
@@ -143,6 +156,8 @@ T1;
         if(k==this.allRecs.length-1){
           this.processing1=false;
           console.log("allrecs at last", this.allRecs)
+          this.filteredAllRecs=this.allRecs;
+          this.allLength=this.allRecs.length;
         }
       })
           
@@ -187,6 +202,8 @@ T1;
         if(k==this.affRecs.length-1){
           this.processing2=false;
           console.log("affrecs at last", this.affRecs)
+          this.filteredAffRecs=this.affRecs;
+          this.affLength=this.affRecs.length;
         }
       })
           
@@ -207,20 +224,49 @@ T1;
    
  }
 
-  aSet(x:number){
-    this.a=x;
+filteredOwnRecs;
+ applyfilterforown(value){
+   console.log("I'm in apply filter")
+   console.log("value from filter function ", value)
+   if(value.length){
+    this.filteredOwnRecs= this.ownRecs.filter(r=> value.includes(r.etat))
+   } else{
+     this.filteredOwnRecs=this.ownRecs
+   }
+   
+ }
+filteredAffRecs
+
+ applyfilterforAff(value){
+  console.log("I'm in apply filter")
+  console.log("value from filter function ", value)
+  if(value.length){
+    if(value.includes("en cours de traitement")){
+      value.push("devis","contrats","ordres d'exection","factures","vérification")
+    }
+   this.filteredAffRecs= this.affRecs.filter(r=> value.includes(r.etat))
+  } else{
+    this.filteredAffRecs=this.affRecs
   }
-  categ(idS){
-    //this.categorie.getCatDet(idS).subscribe((data) =>{
-    //return data.nom;
-    //});
+  
+}
+
+filteredAllRecs
+applyfilterforAll(value){
+  console.log("I'm in apply filter")
+  console.log("value from filter function ", value)
+  if(value.length){
+    if(value.includes("en cours de traitement")){
+      value.push("devis","contrats","ordres d'exection","factures","vérification")
+    }
+   this.filteredAllRecs= this.allRecs.filter(r=> value.includes(r.etat))
+  } else{
+    this.filteredAllRecs=this.allRecs
   }
-  etatN(id){
-    return this.etat.etatName(id)
-  }
-  etatN_Emp(id){
-    return this.etat.etatAltName(id)
-  }
+  
+}
+
+
   
 
 }

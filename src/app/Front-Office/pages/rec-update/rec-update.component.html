@@ -1,7 +1,7 @@
 
 <navbar></navbar>
-<div class="f">
- <!-- Breadcrumb -->
+<!--<div class="f">
+ 
  <nav aria-label="breadcrumb" class="main-breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="acceuil">Accueil</a></li>
@@ -9,8 +9,9 @@
     <li class="breadcrumb-item active" aria-current="page"> Détails </li>
   </ol>
 </nav>
-<!-- /Breadcrumb -->
-</div>
+
+</div>-->
+
 
 
 <div class="home-container"*ngIf="!processing" >
@@ -21,22 +22,33 @@
     <div class="home-container2">
 
 
-      <mat-card class="example-card">
-        <mat-card-title>Détails de la réclamation : </mat-card-title>
+      <mat-card class="example-card1">
+        <mat-card-title class="title1">Détails de la réclamation : </mat-card-title>
         <mat-card-content>
           
           <br/>
-          <p><b>ID Réclamation :    </b>{{rec._id}} </p>
-          <p><b>Date de création :    </b>{{rec.date}} </p>
-          <full [id]="rec._id"></full>
-          
-          <p ><b>Assistant en charge :    </b>
-            <span *ngIf="isAffected">{{assistant.nom}} {{assistant.prenom}}</span>
-            <span *ngIf="!isAffected">la réclamation n'est pas encore affectée</span> </p>
-          
-          <p> <b>Nom réclamant :    </b>{{reclamant.nom}} {{reclamant.prenom}}</p>
+          <div class="date-id">
+            <div class="id1">
+              <p><b>ID Réclamation :    </b>{{rec._id}} </p>
+              <p> <b>Nom réclamant :    </b>{{reclamant.nom}} {{reclamant.prenom}}</p>
           <p> <b>Numéro de téléphone :    </b>{{reclamant.num_tel}} </p>
           <p> <b>Adresse email :    </b>{{reclamant.email}} </p>
+            </div>
+            <div class="date1">
+              <p><b>Date de création :    </b>{{rec.date}} </p>
+              <p ><b>Assistant en charge :    </b>
+                <span *ngIf="isAffected">{{assistant.nom}} {{assistant.prenom}}</span>
+                <span *ngIf="!isAffected">la réclamation n'est pas encore affectée</span> 
+              </p>
+            </div>
+          </div>
+          <br>
+          
+          <full [id]="rec._id"></full>
+          
+          
+          
+          
           
           
 
@@ -53,25 +65,25 @@
         </mat-step>
         <mat-step  >
           
-            <ng-template matStepLabel>Devis</ng-template>
+            <ng-template matStepLabel>Ajout des devis</ng-template>
             
         </mat-step>
         <mat-step  >
           
-            <ng-template matStepLabel>Contrats</ng-template>
+            <ng-template matStepLabel>Ajout des contrats</ng-template>
             
               
             
         </mat-step>
         <mat-step  >
           
-            <ng-template matStepLabel>Ordres d'exécution</ng-template>
+            <ng-template matStepLabel>Ajout de l'ordre d'exécution</ng-template>
             
             
         </mat-step>
         <mat-step  >
           
-            <ng-template matStepLabel>Factures</ng-template>
+            <ng-template matStepLabel>Ajout des factures</ng-template>
             
           
         </mat-step>
@@ -86,16 +98,20 @@
         </mat-step>
       </mat-stepper>
 
-      <button mat-raised-button *ngIf="rec.id_etat < 3" color="primary" (click)="invalidate()">Annuler la réclamation</button>
+      
     </div>
   </div>
   <div class="home-container4" >
     <mat-stepper orientation="horizontal" [linear]="isLinear" [selectedIndex]="rec.id_etat - 1" *ngIf="rec.id_etat <8" #stepper2>
       <mat-step   >
         <ng-template matStepLabel>Affectation</ng-template>
-        <mat-card class="example-card">
+        <mat-card class="example-card-first">
           <mat-card-title>Choisir un assistant à qui affecter la réclamation</mat-card-title>
           <mat-card-content>
+            <p>Si la réclamation est invalide, cliquez sur le bouton "réclamation invalide"</p>
+              <button mat-raised-button color="warn" (click)="invalidate()" align="center">Réclamation invalide</button>
+              <br>
+              <br>
             <p>Veuillez selectionner un assistant avant de continuer</p>
           
         <form [formGroup]="firstFormGroup">
@@ -115,7 +131,7 @@
           </mat-form-field>
           <div class="space">
           </div>
-          <button mat-raised-button matStepperNext color="primary" *ngIf="firstCtrl.valid" align="end" (click)="AffectAndState(firstCtrl.value)">Etape suivante</button>
+          <button mat-raised-button class="firstButton" matStepperNext color="primary" *ngIf="firstCtrl.valid" align="end" (click)="AffectAndState(firstCtrl.value)">Etape suivante</button>
         </form>
       </mat-card-content>
       <mat-card-actions align="end">
@@ -127,13 +143,18 @@
       <mat-step  >
         
           <ng-template matStepLabel>Devis</ng-template>
-          <mat-card class="example-card">
+          <mat-card class="example-card-second">
             <mat-card-title>Ajouter les devis</mat-card-title>
             <mat-card-content>
+              
+              <p>Si la réclamation est invalide, cliquez sur le bouton "réclamation invalide"</p>
+              <button mat-raised-button color="warn" (click)="invalidate()" align="center">Réclamation invalide</button>
+              <br>
+              <br>
               <p>Veuillez ajouter les fichiers necéssaires avant de continuer</p>
             </mat-card-content>
             
-            <mat-card-actions align="end">
+            <mat-card-actions>
               <button mat-raised-button (click)="openDialog(1)">Ajouter fichier</button>
               <button mat-raised-button routerLink="/fournisseurs/{{rec._id}}">Consulter fournisseurs</button>
               <button mat-raised-button matStepperNext color="primary" (click)="nextstate()">Etape suivante</button>
@@ -197,8 +218,8 @@
       <mat-step  >
       
           <ng-template matStepLabel>Vérification</ng-template>
-          <mat-card class="example-card">
-            <mat-card-title>La réclamation a t'elle été bien traitée ?</mat-card-title>
+          <mat-card class="example-card-verif">
+            <mat-card-title>La réclamation a t-elle été bien traitée ?</mat-card-title>
             <mat-card-content>
               <p>Si oui, tapez sur le bouton "Etape suivante"</p>
               <p>Sinon, tapez sur le bouton "Retour à l'étape des devis"</p>
@@ -215,27 +236,29 @@
       <mat-step >
         <ng-template matStepLabel>Fin</ng-template>
         <mat-card class="example-card">
-          <mat-card-title>La réclamation est traitée</mat-card-title>
-          <mat-card-content>
-            <br/>
-          </mat-card-content>
+          <br>
+      <br>
+      <br>
+          <h1 class="recTraitee">La réclamation est traitée</h1>
           </mat-card>
         <div>
         </div>
       </mat-step>
     </mat-stepper>
-    <mat-card class="example-card" *ngIf="rec.id_etat == 8">
-      <mat-card-title>La réclamation est invalide</mat-card-title>
-      <mat-card-content>
-        <br/>
-      </mat-card-content>
+    <mat-card class="example-card-last"  *ngIf="rec.id_etat == 8">
+      <br>
+      <br>
+      <br>
+
+      <h1 class="recInvalide">La réclamation est invalide</h1>
+      
       </mat-card>
   </div>
   <div class="home-container5"> 
     <div class="home-container6" >
     <mat-form-field appearance="standard">
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      <mat-label>Rechercher</mat-label>
+      <input matInput (keyup)="applyFilter($event)" #input>
     </mat-form-field>
     </div>
     <div class="home-container7">
@@ -286,7 +309,7 @@
     
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">Aucun Résultat touvé pour "{{input.value}}"</td>
+          <td class="mat-cell" colspan="4">Aucun Résultat trouvé pour "{{input.value}}"</td>
         </tr>
       </table>
     

@@ -16,6 +16,9 @@ body{
     background-repeat: no-repeat;
   background-position: center;
 }
+.alert {
+  opacity: 100%;
+}
 /**
 .background{
     width: 430px;
