@@ -32,7 +32,7 @@
               <p><b>ID Réclamation :    </b>{{rec._id}} </p>
               <p> <b>Nom réclamant :    </b>{{reclamant.nom}} {{reclamant.prenom}}</p>
           <p> <b>Numéro de téléphone :    </b>{{reclamant.num_tel}} </p>
-          <p> <b>Adresse email :    </b>{{reclamant.email}} </p>
+          <p> <b>Adresse email :    </b><a href="mailto:{{reclamant.email}}">{{reclamant.email}}</a> </p>
             </div>
             <div class="date1">
               <p><b>Date de création :    </b>{{rec.date}} </p>
