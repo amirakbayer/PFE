@@ -228,8 +228,12 @@ h2 small {
     }
 
     
-  
-
+  .RedClass{
+    color: red;
+  }
+.GreenClass{
+  color: green;
+}
 
 
 

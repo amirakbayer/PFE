@@ -150,6 +150,16 @@
     
     padding-right: 5%;
   }
+  .example-card-verif {
+    height:250px;
+    width: 100%;
+    align-items: center;
+    align-self: center;
+    vertical-align: middle;
+    background-color: #ededed;
+    
+    padding-right: 5%;
+  }
   .example-card-first {
     height:380px;
     width: 100%;
