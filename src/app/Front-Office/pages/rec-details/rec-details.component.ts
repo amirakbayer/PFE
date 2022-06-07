@@ -168,13 +168,13 @@ export class RecDetailsComponent implements OnInit,AfterViewInit, OnDestroy {
       }
     })
     //use api to delete it 
-    
+    console.log("id in rec details ",this.id)
   }
   onModif(){
 
     this.dialog.open(ModifDialogComponent, {
       data: {
-        recId: this.id,
+        recId: this.rec._id,
       },
     });
     //this.modif=true;

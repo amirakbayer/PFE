@@ -22,6 +22,7 @@ export class DeleteDialogComponent implements OnInit {
   onDelete(){
     //api to delete with this.dialogData.recId
     this.recService.deleteRec(this.dialogData.recId).subscribe((data) => {
+      console.log("id in delete dialog", this.dialogData.recId)
       this.dialogRef.close();
     this.router.navigate(['/acceuil']);
     })
